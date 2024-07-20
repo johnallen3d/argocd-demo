@@ -27,9 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Kubectl
-        uses: azure/setup-kubectl@v1
+      - name: Install kubeval
+        run: |
+          wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+          tar xf kubeval-linux-amd64.tar.gz
+          sudo mv kubeval /usr/local/bin
 
       - name: Validate Kubernetes manifests
         run: |
-          kubectl apply --dry-run=client -f my-app-application.yml
+          kubeval my-app-application.yml
