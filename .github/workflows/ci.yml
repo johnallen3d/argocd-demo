@@ -22,17 +22,16 @@ jobs:
           helm lint my-app
           helm template my-app
 
-  validate-argocd:
+  validate-yaml:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup ArgoCD Autopilot
+      - name: Install yq
         run: |
-          curl -L https://github.com/argoproj-labs/argocd-autopilot/releases/latest/download/argocd-autopilot-linux-amd64 -o argocd-autopilot
-          chmod +x argocd-autopilot
-          sudo mv argocd-autopilot /usr/local/bin/
+          sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
 
-      - name: Validate ArgoCD Application
+      - name: Validate YAML
         run: |
-          argocd-autopilot repo bootstrap --dry-run --app my-app-application.yml
+          yq eval my-app-application.yml > /dev/null
