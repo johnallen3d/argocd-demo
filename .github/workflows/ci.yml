@@ -27,12 +27,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup ArgoCD CLI
+      - name: Setup ArgoCD Autopilot
         run: |
-          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-          rm argocd-linux-amd64
+          curl -L https://github.com/argoproj-labs/argocd-autopilot/releases/latest/download/argocd-autopilot-linux-amd64 -o argocd-autopilot
+          chmod +x argocd-autopilot
+          sudo mv argocd-autopilot /usr/local/bin/
 
       - name: Validate ArgoCD Application
         run: |
-          argocd app manifests --local-repo . --file my-app-application.yml
+          argocd-autopilot repo bootstrap --dry-run --app my-app-application.yml
