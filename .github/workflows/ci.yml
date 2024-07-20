@@ -22,17 +22,17 @@ jobs:
           helm lint my-app
           helm template my-app
 
-  validate-kubernetes:
+  validate-argocd:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install kubeval
+      - name: Setup ArgoCD CLI
         run: |
-          wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
-          tar xf kubeval-linux-amd64.tar.gz
-          sudo mv kubeval /usr/local/bin
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+          rm argocd-linux-amd64
 
-      - name: Validate Kubernetes manifests
+      - name: Validate ArgoCD Application
         run: |
-          kubeval my-app-application.yml
+          argocd app manifests --local-repo . --file my-app-application.yml
