@@ -1,4 +1,9 @@
 server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.localdev.me
   persistentVolume:
     enabled: false # For simplicity in Kind. In production, you'd typically enable this.
 alertmanager:
