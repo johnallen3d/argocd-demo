@@ -4,6 +4,11 @@ server:
     ingressClassName: nginx
     hosts:
       - prometheus.localdev.me
+    paths:
+      - /
+  service:
+    type: NodePort
+    nodePort: 30080
   persistentVolume:
     enabled: false # For simplicity in Kind. In production, you'd typically enable this.
 alertmanager:
