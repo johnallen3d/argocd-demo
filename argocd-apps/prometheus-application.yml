@@ -11,7 +11,7 @@ spec:
     chart: prometheus
     helm:
       valueFiles:
-        - ../../prometheus/values.yaml
+        - ../prometheus/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
