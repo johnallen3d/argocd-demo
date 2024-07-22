@@ -1,6 +1,12 @@
 server:
   extraArgs:
     - --auth-mode=server
+  ingress:
+    enabled: true
+    hosts:
+      - argo-workflows.localhost
+    paths:
+      - /
 controller:
   workflowNamespaces:
     - argo
