@@ -1,6 +1,6 @@
 server:
   extraArgs:
-    - --auth-mode=server
+    - --auth-mode=client
   ingress:
     enabled: true
     hosts:
