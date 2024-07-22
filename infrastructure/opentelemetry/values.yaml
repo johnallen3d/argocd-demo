@@ -1,52 +1,51 @@
 mode: deployment
+# config:
+#   receivers:
+#     otlp:
+#       protocols:
+#         grpc:
+#         http:
 
-config:
-  receivers:
-    otlp:
-      protocols:
-        grpc:
-        http:
+#   processors:
+#     batch:
 
-  processors:
-    batch:
+#   exporters:
+#     logging:
+#       logLevel: debug
 
-  exporters:
-    logging:
-      logLevel: debug
+#   service:
+#     pipelines:
+#       traces:
+#         receivers: [otlp]
+#         processors: [batch]
+#         exporters: [logging]
+#       metrics:
+#         receivers: [otlp]
+#         processors: [batch]
+#         exporters: [logging]
 
-  service:
-    pipelines:
-      traces:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [logging]
-      metrics:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [logging]
+# ports:
+#   jaeger-compact:
+#     enabled: false
+#   jaeger-grpc:
+#     enabled: false
+#   jaeger-thrift:
+#     enabled: false
 
-ports:
-  jaeger-compact:
-    enabled: false
-  jaeger-grpc:
-    enabled: false
-  jaeger-thrift:
-    enabled: false
+# service:
+#   type: ClusterIP
 
-service:
-  type: ClusterIP
+# resources:
+#   limits:
+#     cpu: 500m
+#     memory: 512Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
 
-resources:
-  limits:
-    cpu: 500m
-    memory: 512Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+# autoscaling:
+#   enabled: false
 
-autoscaling:
-  enabled: false
-
-# Enable metrics collection for the collector itself
-serviceMonitor:
-  enabled: true
+# # Enable metrics collection for the collector itself
+# serviceMonitor:
+#   enabled: true
