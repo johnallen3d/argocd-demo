@@ -105,5 +105,16 @@
    kubectl port-forward service/hello-world 8081:80
    ```
 
-8. Access your application:
+1. Access your application:
    Open a web browser and navigate to `http://hello.localhost:8081`. You should see the "Hello World" nginx demo page.
+
+
+
+
+
+kubectl create namespace open-telemetry
+argocd app create open-telemetry \
+  --repo https://github.com/johnallen3d/argocd-demo.git \
+  --path ./apps/opentelemetry/ \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace open-telemetry

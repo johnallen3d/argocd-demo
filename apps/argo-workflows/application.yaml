@@ -1,21 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: opentelemetry
+  name: argo-workflows
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
-    targetRevision: 0.97.2
-    chart: opentelemetry-collector
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 3.5.8
+    chart: argo-workflows
     helm:
       valueFiles:
-        - ../../infrastructure/opentelemetry/values.yaml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: opentelemetry
+    namespace: argo
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
+
