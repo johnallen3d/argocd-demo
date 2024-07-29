@@ -9,6 +9,9 @@ spec:
     repoURL: https://apache.github.io/superset
     targetRevision: 0.12.11
     chart: superset
+    helm:
+      values: |
+        {{- .Files.Get "superset-values.yaml" | nindent 8 }}
   destination:
     server: https://kubernetes.default.svc
     namespace: superset
