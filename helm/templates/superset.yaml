@@ -11,7 +11,7 @@ spec:
     chart: superset
     helm:
       values: |
-        {{- .Files.Get "superset-values.yaml" | nindent 8 }}
+        {{- .Files.Get "../../superset-values.yaml" | nindent 8 }}
   destination:
     server: https://kubernetes.default.svc
     namespace: superset
