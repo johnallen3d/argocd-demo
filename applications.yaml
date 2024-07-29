@@ -8,9 +8,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: apps
-    directory:
-      include: "superset/*.yaml"
+    path: helm
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
