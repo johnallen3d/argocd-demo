@@ -16,6 +16,21 @@ spec:
         postgresql:
           image:
             tag: "14.12.0-debian-12-r22"
+        bootstrapScript: |
+          #!/bin/bash
+          pip3 install duckdb duckdb-engine
+          if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
+    # helm:
+    #   parameters:
+    #     - name: extraSecretEnv.SUPERSET_SECRET_KEY
+    #       value: $SUPERSET_SECRET_KEY
+    #     - name: postgresql.image.tag
+    #       value: "14.12.0-debian-12-r22"
+    #   valuesFrom:
+    #     - kind: Secret
+    #       name: superset-secret-key
+    #       targetPath: extraSecretEnv.SUPERSET_SECRET_KEY
+    #       key: SUPERSET_SECRET_KEY
   destination:
     server: https://kubernetes.default.svc
     namespace: superset
