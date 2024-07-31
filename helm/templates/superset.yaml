@@ -21,7 +21,7 @@ spec:
     chart: superset
     helm:
       values: |
-        extraEnv:
+        extraEnvRaw:
           - name: SUPERSET_SECRET_KEY
             valueFrom:
               secretKeyRef:
