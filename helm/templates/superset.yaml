@@ -5,7 +5,7 @@ metadata:
   name: superset-secret-key
   namespace: superset
 spec:
-  itemPath: "vaults/k8s/superset-secret-key/credential"
+  itemPath: "vaults/k8s/superset-secret-key"
 
 ---
 apiVersion: argoproj.io/v1alpha1
