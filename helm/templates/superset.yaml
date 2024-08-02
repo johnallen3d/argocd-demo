@@ -12,21 +12,6 @@ spec:
     targetRevision: 0.12.11
     chart: superset
     helm:
-      # values: |
-      #   extraEnvRaw:
-      #     - name: SUPERSET_SECRET_KEY
-      #       valueFrom:
-      #         secretKeyRef:
-      #           name: superset-secret-key
-      #           c
-      #           key: credential
-      #   postgresql:
-      #     image:
-      #       tag: "14.12.0-debian-12-r22"
-      #   bootstrapScript: |
-      #     #!/bin/bash
-      #     pip3 install duckdb duckdb-engine
-      #     if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
       parameters:
         - name: extraEnvRaw[0].name
           value: SUPERSET_SECRET_KEY
