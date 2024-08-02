@@ -8,4 +8,6 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   server.insecure: "true"
-  cert-manager.enabled: "true"
+  server.root.path: "/"
+  server.ingress.enabled: "true"
+  server.ingress.https: "true"
