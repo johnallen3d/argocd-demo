@@ -15,3 +15,13 @@ spec:
                 name: superset
                 port:
                   number: 8088
+    - host: superset.jallen7usa.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: superset
+                port:
+                  number: 8088
