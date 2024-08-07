@@ -11,4 +11,5 @@ spec:
     solvers:
       - http01:
           ingress:
-            class: traefik
+            class: traefik # Adjust if needed to match your IngressClass
+
