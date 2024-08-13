@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-tunnels
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/cloudflare-tunnels/superset-k3s-dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudflare-operator-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
