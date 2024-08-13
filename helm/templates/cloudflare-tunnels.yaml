@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: resources/cloudflare-tunnels/superset-k3s-dev
+    path: resources/cloudflare-tunnels
   destination:
     server: https://kubernetes.default.svc
     namespace: cloudflare-operator-system
