@@ -3,7 +3,7 @@ kind: ClusterTunnel
 metadata:
   name: superset-k3s-dev-tunnel
 spec:
-  newTunnel:
+  existingTunnel:
     name: superset-k3s-dev
   size: 2
   cloudflare:
