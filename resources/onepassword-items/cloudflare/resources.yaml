@@ -2,7 +2,7 @@ apiVersion: onepassword.com/v1
 kind: OnePasswordItem
 metadata:
   name: clourdflare-credentials
-  namespace: superset
+  namespace: cloudflare
 spec:
   itemPath: "vaults/k8s/items/cloudflare--3d"
 
