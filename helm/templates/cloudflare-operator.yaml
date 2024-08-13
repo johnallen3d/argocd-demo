@@ -13,7 +13,7 @@ spec:
     path: config/default
   destination:
     server: https://kubernetes.default.svc
-    namespace: cloudflare-operator
+    namespace: cloudflare-operator-system
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
