@@ -3,8 +3,8 @@ kind: ClusterTunnel
 metadata:
   name: superset-k3s-dev-tunnel
 spec:
-  existingTunnel:
-    name: superset-k3s-dev
+  newTunnel:
+    name: superset-k3s-dev-01
   size: 2
   cloudflare:
     email: n68b5zbnx5@privaterelay.appleid.com
