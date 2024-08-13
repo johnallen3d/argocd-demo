@@ -1,0 +1,15 @@
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: ClusterTunnel
+metadata:
+  name: superset-k3s-dev-tunnel
+spec:
+  newTunnel:
+    name: superset-k3s-dev
+  size: 2
+  cloudflare:
+    email: n68b5zbnx5@privaterelay.appleid.com
+    domain: jallen7usa.com
+    secret: clourdflare-credentials
+    # accountId and accountName cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+    accountName:
+    accountId: c60a9b2426e2d250307a67e4937bb55c
