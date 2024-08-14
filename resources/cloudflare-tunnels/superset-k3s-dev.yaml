@@ -42,6 +42,7 @@ spec:
             - 0.0.0.0:2000
             - run
           args:
+            - --no-tls-verify
             - --token
             - $(CLOUDFLARE_TUNNEL_CREDENTIAL)
           image: cloudflare/cloudflared:latest
