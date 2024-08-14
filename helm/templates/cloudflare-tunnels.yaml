@@ -17,6 +17,10 @@ spec:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
     path: resources/cloudflare-tunnels
+    helm:
+      values: |
+        cloudflare:
+          tunnelCredentialKey: {{ .Values.cloudflare.tunnelCredentialKey }}
   destination:
     server: https://kubernetes.default.svc
     namespace: cloudflare-operator-system

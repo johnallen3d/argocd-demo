@@ -42,4 +42,4 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: cloudflare-credentials
-                  key: CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET
+                  key: {{ .Values.cloudflare.tunnelCredentialKey }}
