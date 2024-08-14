@@ -1,15 +1,61 @@
-apiVersion: networking.cfargotunnel.com/v1alpha1
-kind: ClusterTunnel
+# apiVersion: networking.cfargotunnel.com/v1alpha1
+# kind: ClusterTunnel
+# metadata:
+#   name: superset-k3s-dev-tunnel
+# spec:
+#   existingTunnel:
+#     name: superset-k3s-dev
+#   size: 2
+#   cloudflare:
+#     email: n68b5zbnx5@privaterelay.appleid.com
+#     domain: jallen7usa.com
+#     secret: clourdflare-credentials
+#     # accountId and accountName cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+#     accountName:
+#     accountId: c60a9b2426e2d250307a67e4937bb55c
+
+---
+# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/deploy-tunnels/deployment-guides/kubernetes/#routing-with-cloudflare-tunnel
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: superset-k3s-dev-tunnel
+  labels:
+    app: cloudflared
+  name: cloudflared-deployment
+  namespace: default
 spec:
-  existingTunnel:
-    name: superset-k3s-dev
-  size: 2
-  cloudflare:
-    email: n68b5zbnx5@privaterelay.appleid.com
-    domain: jallen7usa.com
-    secret: clourdflare-credentials
-    # accountId and accountName cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
-    accountName:
-    accountId: c60a9b2426e2d250307a67e4937bb55c
+  replicas: 2
+  selector:
+    matchLabels:
+      pod: cloudflared
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        pod: cloudflared
+    spec:
+      containers:
+        - command:
+            - cloudflared
+            - tunnel
+            - --metrics
+            - 0.0.0.0:2000
+            - run
+          args:
+            - --token
+            - $(CLOUDFLARE_TUNNEL_CREDENTIAL)
+          image: cloudflare/cloudflared:latest
+          name: cloudflared
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          env:
+            - name: CLOUDFLARE_TUNNEL_CREDENTIAL
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-credentials
+                  key: CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET
