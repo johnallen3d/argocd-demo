@@ -54,11 +54,9 @@ kubectl create namespace argocd \
 ```
 
 ```bash
-helm repo add argo https://argoproj.github.io/argo-helm \
-  && helm repo update \
-  && helm install argocd argo/argo-cd --namespace argocd --create-namespace -f argocd-cmd-params-cm.yaml \
-  && sleep 2 \
-  && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
+helm install argocd argo/argo-cd --namespace argocd --create-namespace -f argocd-cmd-params-cm.yaml
+kubectl edit cm argocd-cmd-params-cm -n argocd
+kubectl rollout restart deployment argocd-server -n argocd
 ```
 
 #### Expose
@@ -90,7 +88,8 @@ echo $ARGOCD_PASSWORD | pbcopy
 argocd login localhost:8080 \
   --username admin \
   --password "$ARGOCD_PASSWORD" \
-  --insecure
+  --insecure \
+  --plaintext
 ```
 
 #### Web UI
