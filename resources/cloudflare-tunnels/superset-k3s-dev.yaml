@@ -22,7 +22,7 @@ metadata:
   labels:
     app: cloudflared
   name: cloudflared-deployment
-  namespace: default
+  namespace: cloudflare-operator-system
 spec:
   replicas: 2
   selector:
