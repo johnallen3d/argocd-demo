@@ -64,7 +64,6 @@ kubectl rollout restart deployment argocd-server -n argocd
 ```bash
 # on local machine with k3s
 kubectl port-forward svc/argocd-server -n argocd 8080:443
-kubectl port-forward svc/argocd-server -n argocd 8080:80
 ```
 
 TODO: play with this when we have a working cluster
