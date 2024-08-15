@@ -4,73 +4,29 @@ metadata:
   name: cloudflare-operator-system
 
 ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: cloudflare-tunnels
-#   namespace: argocd
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://github.com/johnallen3d/argocd-demo.git
-#     targetRevision: HEAD
-#     path: resources/cloudflare-tunnels
-#     helm:
-#       values: |
-#         cloudflare:
-#           tunnelCredentialKey: {{ .Values.cloudflare.tunnelCredentialKey }}
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: cloudflare-operator-system
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-
-# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/deploy-tunnels/deployment-guides/kubernetes/#routing-with-cloudflare-tunnel
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  labels:
-    app: cloudflared
-  name: cloudflared-deployment
-  namespace: cloudflare-operator-system
+  name: cloudflare-tunnels
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      pod: cloudflared
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        pod: cloudflared
-    spec:
-      containers:
-        - command:
-            - cloudflared
-            - tunnel
-            - --metrics
-            - 0.0.0.0:2000
-            - run
-          args:
-            - --no-tls-verify
-            - --token
-            - $(CLOUDFLARE_TUNNEL_CREDENTIAL)
-          image: cloudflare/cloudflared:latest
-          name: cloudflared
-          livenessProbe:
-            httpGet:
-              path: /ready
-              port: 2000
-            failureThreshold: 1
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          env:
-            - name: CLOUDFLARE_TUNNEL_CREDENTIAL
-              valueFrom:
-                secretKeyRef:
-                  name: cloudflare-credentials
-                  key: {{ .Values.cloudflare.tunnelCredentialKey }}
+  project: default
+  source:
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/cloudflare-tunnels
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-{{ .Values.environment }}.yaml
+      values: |
+        environment: {{ .Values.environment }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudflare-operator-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,2 +1,1 @@
-cloudflare:
-  tunnelCredentialKey: CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_LOCAL
+environment: local
