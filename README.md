@@ -38,6 +38,7 @@ curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/lat
 ```
 
 ```bash
+export OP_SERVICE_ACCOUNT_TOKE=...
 ./bin/create-secret-onepassword
 ./bin/create-secret-tailscale
 ```
@@ -54,7 +55,6 @@ kubectl create namespace argocd \
 ```
 
 ```bash
-helm install argocd argo/argo-cd --namespace argocd --create-namespace -f argocd-cmd-params-cm.yaml
 kubectl edit cm argocd-cmd-params-cm -n argocd
 kubectl rollout restart deployment argocd-server -n argocd
 ```
