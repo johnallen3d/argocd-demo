@@ -20,7 +20,7 @@ spec:
         environment: {{ .Values.environment }}
   destination:
     server: https://kubernetes.default.svc
-    namespace: cloudflare-operator-system
+    namespace: elastic-system
   syncPolicy:
     automated:
       prune: true
