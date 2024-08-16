@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elastic-stack
+  namespace: elastic-system
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/elastic
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-{{ .Values.environment }}.yaml
+      values: |
+        environment: {{ .Values.environment }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudflare-operator-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
