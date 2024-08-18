@@ -18,8 +18,8 @@ metadata:
   name: minio-env-users
   namespace: minio-tenant-0
 data:
-  CONSOLE_ACCESS_KEY: minio
-  CONSOLE_SECRET_KEY: minio123
+  CONSOLE_ACCESS_KEY: bWluaW8=
+  CONSOLE_SECRET_KEY: bWluaW8xMjM=
 
 ---
 apiVersion: minio.min.io/v2
