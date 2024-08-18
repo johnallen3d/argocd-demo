@@ -43,7 +43,7 @@ spec:
               storage: 1Gi
   # users:
   #   - name: minio-env-users
-  configuration:
-    name: minio-env-configuration
-  buckets:
-    - name: test-bucket-01
+  # configuration:
+  #   name: minio-env-configuration
+  # buckets:
+  #   - name: test-bucket-01
