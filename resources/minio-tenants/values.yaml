@@ -4,6 +4,8 @@ secrets:
 tenant:
   name: minio-tenant-0
   namespace: minio-tenant-0
+  configuration:
+    name: minio-env-configuration
   pools:
     - name: pool-0
       servers: 1
