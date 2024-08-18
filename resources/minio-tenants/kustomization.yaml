@@ -1,5 +1,17 @@
+# copied the files here from examples on GitHub via
+#
+# ```bash
+# curl -s https://api.github.com/repos/minio/operator/contents/examples/kustomization/base \
+#   | jq -r '.[] | select(.name | endswith(".yaml")) | .download_url' \
+#   | xargs -n 1 curl -O -L -s
+# ```
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: minio-tenant
+
 resources:
-  - github.com/minio/operator/examples/kustomization/bases
+- namespace.yaml
+- tenant-config.yaml
+- storage-user.yaml
+- tenant.yaml
