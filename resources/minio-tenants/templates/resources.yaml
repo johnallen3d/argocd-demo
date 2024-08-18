@@ -1,7 +1,7 @@
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
-  name: myminio
+  name: minio-tenant-0
   namespace: minio-tenant-0
 spec:
   ## Specification for MinIO Pool(s) in this Tenant.
