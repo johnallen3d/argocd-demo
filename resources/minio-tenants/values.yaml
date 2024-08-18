@@ -1,12 +1,12 @@
 tenant:
   name: minio-tenant-0
-  namespace: minio-tenant-0
+  namespace: minio-tenant-10
   configuration:
     name: minio-env-configuration
   pools:
     - name: pool-0
       servers: 1
-  existingSecret: false
+  # existingSecret: false
   configSecret:
     name: minio-env-configuration
     accessKey: minio

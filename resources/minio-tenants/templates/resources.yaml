@@ -30,5 +30,5 @@ spec:
           resources:
             requests:
               storage: 1Gi
-  credsSecret:
+  configuration:
     name: minio-env-configuration
