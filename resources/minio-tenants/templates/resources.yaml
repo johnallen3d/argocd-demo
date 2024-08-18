@@ -41,7 +41,7 @@ spec:
           resources:
             requests:
               storage: 1Gi
-  users:
-    - name: minio-env-users
+  # users:
+  #   - name: minio-env-users
   configuration:
     name: minio-env-configuration
