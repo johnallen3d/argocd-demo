@@ -11,7 +11,7 @@ spec:
   pools:
     - name: pool-0
       servers: 1
-      volumesPerServer: 2
+      volumesPerServer: 4
       volumeClaimTemplate:
         metadata:
           name: data
