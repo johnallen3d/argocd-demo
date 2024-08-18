@@ -1,3 +1,15 @@
+# TODO: 😆
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-creds-secret
+  namespace: minio-tenant-0
+type: Opaque
+stringData:
+  accesskey: minio
+  secretkey: minio123
+
+---
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
@@ -17,3 +29,5 @@ spec:
           resources:
             requests:
               storage: 1Gi
+  credsSecret:
+    name: minio-creds-secret

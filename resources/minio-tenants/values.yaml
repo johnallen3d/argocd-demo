@@ -1,7 +1,3 @@
-secrets:
-  name: myminio-env-configuration
-  accessKey: minio
-  secretKey: minio123
 tenant:
   name: minio-tenant-0
   namespace: minio-tenant-0
