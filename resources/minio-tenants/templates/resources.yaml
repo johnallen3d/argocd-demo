@@ -1,14 +1,14 @@
 # TODO: 😆
 apiVersion: v1
 kind: Secret
+type: Opaque
 metadata:
   name: minio-env-configuration
   namespace: minio-tenant-0
-type: Opaque
 stringData:
   config.env: |-
-    export MINIO_ROOT_USER=minio
-    export MINIO_ROOT_PASSWORD=minio123
+    export MINIO_ROOT_USER='minio'
+    export MINIO_ROOT_PASSWORD='minio123'
 
 ---
 apiVersion: minio.min.io/v2
