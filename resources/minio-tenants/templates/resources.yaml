@@ -18,9 +18,8 @@ metadata:
   name: minio-env-users
   namespace: minio-tenant-0
 stringData:
-  config.env: |-
-    export CONSOLE_ACCESS_KEY='minio'
-    export CONSOLE_SECRET_KEY='minio123'
+  CONSOLE_ACCESS_KEY: minio
+  CONSOLE_SECRET_KEY: minio123
 
 ---
 apiVersion: minio.min.io/v2
