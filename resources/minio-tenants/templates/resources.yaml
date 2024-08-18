@@ -17,7 +17,7 @@ type: Opaque
 metadata:
   name: minio-env-users
   namespace: minio-tenant-0
-stringData:
+data:
   CONSOLE_ACCESS_KEY: minio
   CONSOLE_SECRET_KEY: minio123
 
