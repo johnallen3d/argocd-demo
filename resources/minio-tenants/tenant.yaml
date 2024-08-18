@@ -198,7 +198,8 @@ spec:
           resources:
             requests:
               storage: 1Ti
-          storageClassName: standard
+          # rely on default storage class in cluster
+          # storageClassName: standard
         status: {}
       ## Configure Pod's security context
       ## We recommend to skip the recursive permission change by using
