@@ -1,3 +1,6 @@
+secrets:
+  existingSecret:
+    name: enabled
 tenant:
   name: minio-tenant-0
   namespace: minio-tenant-0
