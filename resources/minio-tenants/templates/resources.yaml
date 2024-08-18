@@ -45,3 +45,5 @@ spec:
   #   - name: minio-env-users
   configuration:
     name: minio-env-configuration
+  buckets:
+    - name: test-bucket-01
