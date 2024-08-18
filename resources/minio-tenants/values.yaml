@@ -1,0 +1,6 @@
+tenant:
+  name: minio-tenant-0
+  namespace: minio-tenant-0
+  pools:
+    - name: pool-0
+      servers: 1

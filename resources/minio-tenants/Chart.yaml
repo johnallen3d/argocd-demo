@@ -1,0 +1,10 @@
+apiVersion: v2
+name: minio-tenant
+description: MinIO Tenant Helm Chart
+type: application
+version: 0.1.0
+appVersion: "1.0"
+dependencies:
+  - name: tenant
+    version: "*"
+    repository: "https://operator.min.io/"
