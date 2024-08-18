@@ -2,12 +2,13 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: minio-creds-secret
+  name: minio-env-configuration
   namespace: minio-tenant-0
 type: Opaque
 stringData:
-  accesskey: minio
-  secretkey: minio123
+  config.env: |-
+    export MINIO_ROOT_USER=minio
+    export MINIO_ROOT_PASSWORD=minio123
 
 ---
 apiVersion: minio.min.io/v2
@@ -30,4 +31,4 @@ spec:
             requests:
               storage: 1Gi
   credsSecret:
-    name: minio-creds-secret
+    name: minio-env-configuration
