@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: minio-tenant-0
 
+{{- if eq .Values.environment "foo" }}
 # ---
 # apiVersion: v1
 # kind: Secret
@@ -108,4 +109,4 @@ spec:
   subPath: ""
   users:
   - name: minio-console-user-credential
-
+{{- end }}
