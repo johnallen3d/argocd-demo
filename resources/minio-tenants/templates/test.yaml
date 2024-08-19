@@ -89,7 +89,7 @@ spec:
         resources:
           requests:
             storage: 1Ti
-        storageClassName: standard
+        # storageClassName: standard
       status: {}
     volumesPerServer: 4
   priorityClassName: ""
