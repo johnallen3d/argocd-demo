@@ -38,6 +38,8 @@ metadata:
   name: minio-tenant-0
   namespace: minio-tenant-0
 spec:
+  buckets:
+  - name: "test-bucket-01"
   certConfig: {}
   configuration:
     name: storage-configuration
