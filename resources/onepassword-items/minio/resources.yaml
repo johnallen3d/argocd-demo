@@ -1,0 +1,10 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: minio-credentials
+  namespace: minio-tenant-0
+spec:
+  itemPath: "vaults/k8s/items/minio--xcel"
+
+---
+
