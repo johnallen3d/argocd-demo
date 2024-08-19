@@ -85,14 +85,5 @@ spec:
   subPath: ""
   users:
   - name: minio-console-user-credential
-
----
-apiVersion: minio.min.io/v2
-kind: Bucket
-metadata:
-  name: test-bucket-01
-  namespace: minio-tenant-0
-spec:
-  name: "test-bucket-01"
 {{- end }}
 
