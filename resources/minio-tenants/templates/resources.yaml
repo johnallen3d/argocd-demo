@@ -1,54 +1,54 @@
-# TODO: 😆
-apiVersion: v1
-kind: Secret
-type: Opaque
-metadata:
-  name: storage-configuration
-  namespace: minio-tenant-0
-stringData:
-  config.env: |-
-    export MINIO_ROOT_USER="minio"
-    export MINIO_ROOT_PASSWORD='minio123'
-    export MINIO_STORAGE_CLASS_STANDARD="EC:2"
-    export MINIO_BROWSER="on"
+# # TODO: 😆
+# apiVersion: v1
+# kind: Secret
+# type: Opaque
+# metadata:
+#   name: storage-configuration
+#   namespace: minio-tenant-0
+# stringData:
+#   config.env: |-
+#     export MINIO_ROOT_USER="minio"
+#     export MINIO_ROOT_PASSWORD='minio123'
+#     export MINIO_STORAGE_CLASS_STANDARD="EC:2"
+#     export MINIO_BROWSER="on"
 
----
-apiVersion: v1
-kind: Secret
-type: Opaque
-metadata:
-  name: storage-user
-  namespace: minio-tenant-0
-data:
-  CONSOLE_ACCESS_KEY: Y29uc29sZQ==
-  CONSOLE_SECRET_KEY: Y29uc29sZTEyMw==
+# ---
+# apiVersion: v1
+# kind: Secret
+# type: Opaque
+# metadata:
+#   name: storage-user
+#   namespace: minio-tenant-0
+# data:
+#   CONSOLE_ACCESS_KEY: Y29uc29sZQ==
+#   CONSOLE_SECRET_KEY: Y29uc29sZTEyMw==
 
----
-apiVersion: minio.min.io/v2
-kind: Tenant
-metadata:
-  name: minio-tenant-0
-  namespace: minio-tenant-0
-spec:
-  configuration:
-    name: storage-configuration
-  features:
-    bucketDNS: false
-    domains: {}
-  pools:
-    - name: pool-0
-      servers: 1
-      volumesPerServer: 4
-      volumeClaimTemplate:
-        metadata:
-          name: data
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 1Gi
-  users:
-    - name: storage-user
-  # buckets:
-  #   - name: test-bucket-01
+# ---
+# apiVersion: minio.min.io/v2
+# kind: Tenant
+# metadata:
+#   name: minio-tenant-0
+#   namespace: minio-tenant-0
+# spec:
+#   configuration:
+#     name: storage-configuration
+#   features:
+#     bucketDNS: false
+#     domains: {}
+#   pools:
+#     - name: pool-0
+#       servers: 1
+#       volumesPerServer: 4
+#       volumeClaimTemplate:
+#         metadata:
+#           name: data
+#         spec:
+#           accessModes:
+#             - ReadWriteOnce
+#           resources:
+#             requests:
+#               storage: 1Gi
+#   users:
+#     - name: storage-user
+#   # buckets:
+#   #   - name: test-bucket-01
