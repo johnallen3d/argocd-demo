@@ -65,28 +65,4 @@ spec:
       app.kubernetes.io/name: argocd-repo-server
   endpoints:
   - port: metrics
-
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: minio-sm-cluster
-  namespace: minio
-  labels:
-    v1.min.io/tenant: minio
-    release: kube-prometheus-stack
-spec:
-  jobLabel: cluster-job
-  endpoints:
-  - bearerTokenSecret:
-      key: cluster-token
-      name: minio-metrics-bearer-tokens
-    path: /minio/v2/metrics/cluster
-    scheme: https
-    port: https-minio
-    tlsConfig:
-      insecureSkipVerify: true
-  selector:
-    matchLabels:
-      v1.min.io/tenant: minio
 {{- end }}
