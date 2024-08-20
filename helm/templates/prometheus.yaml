@@ -72,7 +72,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: minio
+      v1.min.io/tenant: minio-tenant-0
   namespaceSelector:
     matchNames:
       - minio-tenant-0
