@@ -64,6 +64,7 @@ spec:
   - port: metrics
 
 ---
+# TODO: this is not yet working (minio not showing up in prometheus targets)
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
