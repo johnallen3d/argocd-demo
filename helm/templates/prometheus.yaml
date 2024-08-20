@@ -67,7 +67,8 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: minio-monitor
+  name: minio-metrics
+  namespace: minio-tenant-0
   labels:
     release: prometheus
 spec:
