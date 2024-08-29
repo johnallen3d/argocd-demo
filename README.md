@@ -18,29 +18,38 @@ brew install multipass helm
 ##### Bootstrap VM
 
 ```bash
-multipass launch --name k3s --memory 4G --disk 40G --timeout 3000 \
+export OP_SERVICE_ACCOUNT_TOKE=...
+
+multipass stop k3s \
+  && multipass delete k3s \
+  && multipass purge \
+  && multipass launch --name k3s --cpus 6 --memory 8G --disk 60G --timeout 3000 \
   && multipass exec k3s -- bash -c 'curl -sfL https://get.k3s.io -o install.sh && sh install.sh' \
   && multipass exec k3s -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config \
   && sed -i '' "s/127\.0\.0\.1/$(multipass info k3s | grep IPv4: | awk '{print $2}')/g" ~/.kube/config \
-  && k cluster-info
+  && k cluster-info \
+  && ./bin/create-secret-onepassword \
+  && kubectl create namespace argocd \
+  && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
+  && sleep 2 \
+  && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s \
+  && kubectl apply -f apps-local.yaml \
+  && kubectl rollout restart deployment argocd-server --namespace argocd \
+  && kubectl rollout status deployment/argocd-server -n argocd
 ```
 
 ##### Bootstrap k3s
 
-###### Prerequesites
-
-- argocd cli
+Set the `kubectl` context to the cluster we are setting up.
 
 ```bash
-curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 \
-  && install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
-  && rm argocd-linux-amd64
+kubectl config use-context default
+# or
+kubectl config use-context proxmox-01-control-01
 ```
 
 ```bash
-export OP_SERVICE_ACCOUNT_TOKE=...
 ./bin/create-secret-onepassword
-./bin/create-secret-tailscale
 ```
 
 ### ArgoCD
@@ -54,26 +63,11 @@ kubectl create namespace argocd \
   && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
 ```
 
-```bash
-kubectl edit cm argocd-cmd-params-cm -n argocd
-kubectl rollout restart deployment argocd-server -n argocd
-```
-
 #### Expose
 
 ```bash
 # on local machine with k3s
 kubectl port-forward svc/argocd-server -n argocd 8080:443
-```
-
-TODO: play with this when we have a working cluster
-
-```bash
-kubectl apply -f argocd-ingress.yaml
-# grab ip of k8s host, eg. multipass
-multipass info | grep IPv4: | awk '{print $2}' | pbcopy
-sudo vi /etc/hosts
-192... argocd.localhost
 ```
 
 #### CLI Login
@@ -100,7 +94,9 @@ open https://localhost:8080
 #### App of Apps
 
 ```bash
-kubectl apply -f apps-local.yaml
+kubectl apply -f apps-local.yaml \
+  && kubectl rollout restart deployment argocd-server --namespace argocd \
+  && kubectl rollout status deployment/argocd-server -n argocd
 ```
 
 ## Teardown

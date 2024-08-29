@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-demo-xcel-on-prem
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
+    path: helm
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-xcel-on-prem.yaml
+      values: |
+        environment: xcel-on-prem
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
