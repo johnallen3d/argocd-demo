@@ -108,3 +108,11 @@ multipass stop k3s \
   && multipass delete k3s \
   && multipass purge
 ```
+
+## Environments
+
+| name         | locaction     | description                                      |
+| ------------ | ------------- | ------------------------------------------------ |
+| local        | local machine | a local testing cluster (eg. k3s)                |
+| dev          | trashcan-01   | an instance of k3s running on the trashcan       |
+| xcel-on-prem | trashcan-01   | Talos cluster running in Proxmox on the trashcan |
