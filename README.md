@@ -25,9 +25,12 @@ multipass stop k3s \
   && multipass purge \
   && multipass launch --name k3s --cpus 6 --memory 8G --disk 60G --timeout 3000 \
   && multipass exec k3s -- bash -c 'curl -sfL https://get.k3s.io -o install.sh && sh install.sh' \
-  && multipass exec k3s -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config \
-  && sed -i '' "s/127\.0\.0\.1/$(multipass info k3s | grep IPv4: | awk '{print $2}')/g" ~/.kube/config \
-  && k cluster-info \
+  && multipass exec k3s -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/k3s-local.yaml \
+  && sed -i '' "s/127\.0\.0\.1/$(multipass info k3s | grep IPv4: | awk '{print $2}')/g" ~/.kube/k3s-local.yaml \
+  && set -x KUBECONFIG "$HOME/.kube/k3s-local.yaml:$HOME/.kube/proxmox-01-cluster-01" \
+  && kubectl config view --flatten > ~/.kube/config \
+  && kubectl cluster-info \
+  && kubectl config use-context default \
   && ./bin/create-secret-onepassword \
   && kubectl create namespace argocd \
   && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
@@ -111,8 +114,8 @@ multipass stop k3s \
 
 ## Environments
 
-| name         | locaction     | description                                      |
-| ------------ | ------------- | ------------------------------------------------ |
-| local        | local machine | a local testing cluster (eg. k3s)                |
-| dev          | trashcan-01   | an instance of k3s running on the trashcan       |
-| xcel-on-prem | trashcan-01   | Talos cluster running in Proxmox on the trashcan |
+| name         | locaction     | cluster type | host      | description                                      |
+| ------------ | ------------- | ------------ | --------- | ------------------------------------------------ |
+| local        | local machine | k3s          | multipass | a local testing cluster (eg. k3s)                |
+| dev          | trashcan-01   | k3s          | direct    | an instance of k3s running on the trashcan       |
+| xcel-on-prem | trashcan-01   | talos        | proxmox   | Talos cluster running in Proxmox on the trashcan |
