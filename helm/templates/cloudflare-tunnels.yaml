@@ -10,7 +10,7 @@ metadata:
   name: cloudflare-tunnels
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
