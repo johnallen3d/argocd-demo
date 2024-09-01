@@ -36,6 +36,15 @@ spec:
         values: |
           preUpgradeChecker:
             jobEnabled: false
+          {{- if eq .Values.environment "local" }}
+          defaultSettings:
+            defaultReplicaCount: 1
+            storageOverProvisioningPercentage: 100
+            storageMinimalAvailablePercentage: 10
+          persistence:
+            defaultClass: true
+            defaultClassReplicaCount: 1
+          {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
