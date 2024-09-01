@@ -18,7 +18,7 @@ brew install multipass helm
 ##### Bootstrap VM
 
 ```bash
-export OP_SERVICE_ACCOUNT_TOKE=...
+export OP_SERVICE_ACCOUNT_TOKEN=...
 
 multipass stop k3s \
   && multipass delete k3s \
@@ -34,11 +34,14 @@ multipass stop k3s \
   && ./bin/create-secret-onepassword \
   && kubectl create namespace argocd \
   && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
-  && sleep 2 \
+  && sleep 5 \
   && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s \
   && kubectl apply -f apps-local.yaml \
+  && sleep 5 \
   && kubectl rollout restart deployment argocd-server --namespace argocd \
-  && kubectl rollout status deployment/argocd-server -n argocd
+  && kubectl rollout status deployment/argocd-server -n argocd \
+  && set ARGOCD_PASSWORD $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) \
+  && echo $ARGOCD_PASSWORD | pbcopy
 ```
 
 ##### Bootstrap k3s
