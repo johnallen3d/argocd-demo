@@ -1,0 +1,12 @@
+apiVersion: security.kubernetes.io/v1beta1
+kind: PodSecurityException
+metadata:
+  name: prometheus-node-exporter
+  namespace: monitoring
+spec:
+  podSecurityStandard: privileged
+  allowedPrivileges:
+    - hostNetwork
+    - hostPID
+    - hostPath
+    - hostPort
