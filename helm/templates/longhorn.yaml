@@ -26,6 +26,8 @@ kind: Application
 metadata:
   name: longhorn
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   sources:
