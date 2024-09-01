@@ -1,1 +1,4 @@
-tenant:
+minio:
+  tenant:
+    storage:
+      size: 100Gi

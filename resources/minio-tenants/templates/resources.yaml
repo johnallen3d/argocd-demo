@@ -62,12 +62,7 @@ spec:
         - ReadWriteOnce
         resources:
           requests:
-            {{- if eq .Values.environment "local" }}
-            storage: 1Gi
-            {{- else }}
-            storage: 1Ti
-            {{- end }}
-        # storageClassName: standard
+            storage: {{ .Values.minio.tenant.storage.size }}
       status: {}
     volumesPerServer: 4
   priorityClassName: ""
