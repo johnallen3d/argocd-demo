@@ -1,4 +1,4 @@
 minio:
   tenant:
     storage:
-      size: 100Gi
+      size: 10Gi
