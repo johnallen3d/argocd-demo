@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: resources/cloudflare-tunnels
+    path: system/cloudflare-tunnels
     helm:
       valueFiles:
         - values.yaml
