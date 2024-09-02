@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: helm
+    path: system/base
     helm:
       valueFiles:
         - values.yaml
