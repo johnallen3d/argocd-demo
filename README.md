@@ -2,56 +2,25 @@
 
 ## Build a Cluster with
 
-- Ingress Nginx
-- ArgoCD
+- [multipass + k3s](./docs/cluster/multipass-k3s.md) or [talos + proxmox](./docs/cluster/proxmox-talos.md)
+- [argocd](https://argo-cd.readthedocs.io/en/stable/) gitops continuous delivery for k8s
+- [onepassword-operator](https://developer.1password.com/docs/k8s/k8s-operator/) via their helm chart for managing secrets
+- [superset](https://superset.apache.org/) via their helm chart for building dashboards etc.
+- [minio-operator](https://min.io/docs/minio/kubernetes/upstream/operations/installation.html) via their helm chart for providing object storage
+- [eck-operator](https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-overview.html) via there helm chart for standing up elasticsearch
+- [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack/) via their helm chart for monitoring
+- [longhorn](https://longhorn.io/) providing storage for the cluster
+- [cloudflare zero trust tunnels](https://www.cloudflare.com/products/tunnel/) exposing services externally (in lieu of ingress etc)
 
-### Multipass
-
-For local development, we can use [Multipass](https://multipass.run/).
-
-```bash
-brew install multipass helm
-```
-
-#### Setup
-
-##### Bootstrap VM
-
-```bash
-export OP_SERVICE_ACCOUNT_TOKEN=...
-
-multipass stop k3s \
-  && multipass delete k3s \
-  && multipass purge \
-  && multipass launch --name k3s --cpus 6 --memory 8G --disk 60G --timeout 3000 \
-  && multipass exec k3s -- bash -c 'curl -sfL https://get.k3s.io -o install.sh && sh install.sh' \
-  && multipass exec k3s -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/k3s-local.yaml \
-  && sed -i '' "s/127\.0\.0\.1/$(multipass info k3s | grep IPv4: | awk '{print $2}')/g" ~/.kube/k3s-local.yaml \
-  && set -x KUBECONFIG "$HOME/.kube/k3s-local.yaml:$HOME/.kube/proxmox-01-cluster-01" \
-  && kubectl config view --flatten > ~/.kube/config \
-  && kubectl cluster-info \
-  && kubectl config use-context default \
-  && ./bin/create-secret-onepassword \
-  && kubectl create namespace argocd \
-  && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
-  && sleep 5 \
-  && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s \
-  && kubectl apply -f apps-local.yaml \
-  && sleep 5 \
-  && kubectl rollout restart deployment argocd-server --namespace argocd \
-  && kubectl rollout status deployment/argocd-server -n argocd \
-  && set ARGOCD_PASSWORD $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) \
-  && echo $ARGOCD_PASSWORD | pbcopy
-```
-
-##### Bootstrap k3s
+### Bootstrap Cluster
 
 Set the `kubectl` context to the cluster we are setting up.
 
 ```bash
-kubectl config use-context default
+set context_name default
 # or
-kubectl config use-context proxmox-01-control-01
+set context_name admin@talos-proxmox-cluster
+kubectl config use-context $context_name
 ```
 
 ```bash
@@ -65,54 +34,24 @@ kubectl config use-context proxmox-01-control-01
 ```bash
 kubectl create namespace argocd \
   && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
-  && sleep 2 \
+  && sleep 5 \
   && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s
-```
-
-#### Expose
-
-```bash
-# on local machine with k3s
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-```
-
-#### CLI Login
-
-```bash
-# grab default password
-set ARGOCD_PASSWORD $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-# export ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-echo $ARGOCD_PASSWORD | pbcopy
-# argocd repo add https://github.com/johnallen3d/argocd-demo --name argocd-demo
-argocd login localhost:8080 \
-  --username admin \
-  --password "$ARGOCD_PASSWORD" \
-  --insecure \
-  --plaintext
-```
-
-#### Web UI
-
-```bash
-open https://localhost:8080
 ```
 
 #### App of Apps
 
 ```bash
-kubectl apply -f apps-local.yaml \
+set env xcel-on-prem
+kubectl apply -f apps-$env.yaml \
   && kubectl rollout restart deployment argocd-server --namespace argocd \
-  && kubectl rollout status deployment/argocd-server -n argocd
+  && kubectl rollout status deployment/argocd-server --namespace argocd
 ```
 
-## Teardown
-
-### Multipass
+#### Default ArgoCD Password
 
 ```bash
-multipass stop k3s \
-  && multipass delete k3s \
-  && multipass purge
+set ARGOCD_PASSWORD $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+echo $ARGOCD_PASSWORD | pbcopy
 ```
 
 ## Environments
