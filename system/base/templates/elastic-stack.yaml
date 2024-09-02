@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: resources/elastic-stack
+    path: system/elastic-stack
     helm:
       valueFiles:
         - values.yaml
