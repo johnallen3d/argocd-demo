@@ -42,7 +42,7 @@ kubectl create namespace argocd \
 
 ```bash
 set env xcel-on-prem
-kubectl apply -f apps-$env.yaml \
+kubectl apply -f apps/$env.yaml \
   && kubectl rollout restart deployment argocd-server --namespace argocd \
   && kubectl rollout status deployment/argocd-server --namespace argocd
 ```

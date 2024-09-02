@@ -41,7 +41,7 @@ multipass stop k3s \
   && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml \
   && sleep 5 \
   && kubectl wait --for=condition=Ready pods --all -n argocd --timeout=300s \
-  && kubectl apply -f apps-local.yaml \
+  && kubectl apply -f apps/local.yaml \
   && sleep 5 \
   && kubectl rollout restart deployment argocd-server --namespace argocd \
   && kubectl rollout status deployment/argocd-server -n argocd \
