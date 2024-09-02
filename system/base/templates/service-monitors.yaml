@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
-    path: resources/service-monitors
+    path: system/service-monitors
     helm:
       valueFiles:
         - values.yaml
