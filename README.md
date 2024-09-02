@@ -17,10 +17,10 @@
 Set the `kubectl` context to the cluster we are setting up.
 
 ```bash
-set context_name default
+set k8s_context_name default
 # or
-set context_name admin@talos-proxmox-cluster
-kubectl config use-context $context_name
+set k8s_context_name admin@talos-proxmox-cluster
+kubectl config use-context $k8s_context_name
 ```
 
 ```bash
