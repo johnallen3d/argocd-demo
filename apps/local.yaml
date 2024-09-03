@@ -4,20 +4,19 @@ metadata:
   name: argocd-demo-local
   namespace: argocd
 spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/johnallen3d/argocd-demo.git
-    targetRevision: HEAD
-    path: system/base
     helm:
       valueFiles:
-        - values.yaml
-        - values-local.yaml
-      values: |
-        environment: local
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
+      - values.yaml
+      - values-local.yaml
+      values: 'environment: local'
+    path: system/base
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
