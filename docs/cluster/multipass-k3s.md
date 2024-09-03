@@ -9,10 +9,6 @@ For local development [Multipass](https://multipass.run/).
 - ubuntu-based instances by default
 - cross-platform compatibility (mac, windows, linux)
 
-```bash
-brew install multipass helm
-```
-
 ## k3s
 
 - lightweight kubernetes distribution
