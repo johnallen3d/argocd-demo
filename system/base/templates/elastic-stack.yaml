@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
-    targetRevision: HEAD
+    targetRevision: feature/external-secrets
     path: system/elastic-stack
     helm:
       valueFiles:
