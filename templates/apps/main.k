@@ -1,6 +1,6 @@
 import argo_cd.v1alpha1 as argocd
 
-_generate = lambda env -> argocd.Application {
+_generate = lambda env: str, ref: str -> argocd.Application {
     {
         kind = "Application"
         apiVersion = "argoproj.io/v1alpha1"
@@ -12,7 +12,7 @@ _generate = lambda env -> argocd.Application {
             project = "default"
             source = {
                 repoURL = "https://github.com/johnallen3d/argocd-demo.git"
-                targetRevision = "HEAD"
+                targetRevision = ref
                 path = "system/base"
                 helm = {
                     valueFiles = [
@@ -35,4 +35,4 @@ _generate = lambda env -> argocd.Application {
         }
     }
 }
-environments = {str(env): _generate(env) for env in ["dev", "local", "xcel-on-prem"]}
+environments = {str(env): _generate(env, ref) for env, ref in {"local" = "feature/external-secrets", "xcel-on-prem" = "HEAD"}}

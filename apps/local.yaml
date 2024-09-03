@@ -16,7 +16,7 @@ spec:
       values: 'environment: local'
     path: system/base
     repoURL: https://github.com/johnallen3d/argocd-demo.git
-    targetRevision: HEAD
+    targetRevision: feature/external-secrets
   syncPolicy:
     automated:
       prune: true
