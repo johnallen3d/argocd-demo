@@ -2,10 +2,14 @@
 
 ## Managed Secrets
 
-- [`superset-secret-key`](https://superset.apache.org/docs/configuration/configuring-superset/#superset_configpy): a session cookie signing key for superset
-- `minio-console-credential--xcel` : default login credentails for the MinIO console web application
-- `minio-storage-configuration--xcel` : minio storage configuration including root user credentials
-- `cloudflare--3d` : access token for [Cloudflare Zero Trust tunnels](https://www.cloudflare.com/products/tunnel/)
+| name                                | namespace                    | description                                                          |
+| ----------------------------------- | ---------------------------- | -------------------------------------------------------------------- |
+| `op-credentials`                    | `1password`                  | `1password-credentials.json` access to 1Password from Connect server |
+| `onepassword-token`                 | `1password`                  | access 1Password Connect server                                      |
+| `superset-secret-key`               | `superset`                   | a session cookie signing key for superset                            |
+| `minio-console-credential--xcel`    | `minio-tenant-0`             | default login credentails for the MinIO console web application      |
+| `minio-storage-configuration--xcel` | `minio-tenant-0`             | minio storage configuration including root user credentials          |
+| `cloudflare--3d`                    | `cloudflare-operator-system` | access token for Cloudflare Zero Trust tunnels                       |
 
 ## Current State
 
