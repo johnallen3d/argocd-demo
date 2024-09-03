@@ -11,5 +11,6 @@ spec:
       auth:
         secretRef:
           connectTokenSecretRef:
+            namespace: 1password
             name: onepassword-token
             key: token
