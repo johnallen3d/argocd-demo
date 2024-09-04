@@ -30,3 +30,19 @@ spec:
   dataFrom:
   - extract:
       key: superset-secret-key
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-credentials
+  namespace: cloudflare-operator-system
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: cloudflare--3d
