@@ -23,7 +23,7 @@ metadata:
   namespace: superset
 spec:
   secretStoreRef:
-    kind: SecretStore
+    kind: ClusterSecretStore
     name: cluster-secret-store
   target:
     creationPolicy: Owner
