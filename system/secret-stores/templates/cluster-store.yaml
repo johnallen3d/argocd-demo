@@ -14,3 +14,19 @@ spec:
             namespace: 1password
             name: onepassword-token
             key: token
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: superset-secret-key
+  namespace: superset
+spec:
+  secretStoreRef:
+    kind: SecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: superset-secret-key
