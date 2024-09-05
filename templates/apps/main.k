@@ -39,6 +39,6 @@ _generate = lambda env: str, ref: str, secrets_provider: str -> argocd.Applicati
     }
 }
 apps = {"${env}-${secrets_provider}": _generate(env, ref, secrets_provider) for env, ref in {
-    "local" = "feature/external-secrets"
+    "local" = "HEAD"
     "xcel-on-prem" = "HEAD"
 } for secrets_provider in ["op", "aws"]}
