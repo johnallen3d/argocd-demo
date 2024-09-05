@@ -62,7 +62,7 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: K8S/Local/Superset
+      key: superset-secret-key
 {{- end }}
 
 {{- if eq .Values.secrets_provider "aws" }}
@@ -134,6 +134,6 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: superset-secret-key
+      key: K8S/Local/Superset
 {{- end }}
 
