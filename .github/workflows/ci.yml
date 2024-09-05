@@ -17,21 +17,15 @@ jobs:
         with:
           version: "latest"
 
-      - name: Validate Helm Chart
-        run: |
-          helm lint my-app
-          helm template my-app
-
-  validate-yaml:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
       - name: Install yq
         run: |
           sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           sudo chmod +x /usr/local/bin/yq
 
-      - name: Validate YAML
+      - name: Validate Helm Chart
         run: |
-          yq eval my-app-application.yml > /dev/null
+          for chart in $(find system -name Chart.yaml -exec dirname {} \;); do
+            echo "Linting chart: $chart"
+            helm lint $chart
+            helm template $chart | yq
+          done
