@@ -12,9 +12,6 @@ spec:
     targetRevision: HEAD
     path: system/elastic-stack
     helm:
-      valueFiles:
-        - values.yaml
-        - values-{{ .Values.environment }}.yaml
       values: |
         environment: {{ .Values.environment }}
   destination:

@@ -18,9 +18,6 @@ spec:
     targetRevision: HEAD
     path: system/cloudflare-tunnels
     helm:
-      valueFiles:
-        - values.yaml
-        - values-{{ .Values.environment }}.yaml
       values: |
         environment: {{ .Values.environment }}
   destination:
