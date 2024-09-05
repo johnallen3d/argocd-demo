@@ -26,3 +26,19 @@
 - secrets retrieved from external provider depending on environment(?):
   - `local` - 1Password
   - `xcel-on-prem` - AWS Secrets Manager
+
+## Migration
+
+```text
+cloudflare--3d                    -> K8S/Local/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_LOCAL
+minio-console--configuration-xcel -> K8S/Local/MinIO.config.env
+minio-storage-credential--xcel    -> K8S/Local/MinIO.CONSOLE_ACCESS_KEY
+minio-storage-credential--xcel    -> K8S/Local/MinIO.CONSOLE_SECRET_KEY
+superset-secret-key               -> K8S/Local/Superset.credential
+
+cloudflare--3d                    -> K8S/OnPrem/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_XCEL_ON_PREM
+minio-console--configuration-xcel -> K8S/OnPrem/MinIO.config.env
+minio-storage-credential--xcel    -> K8S/OnPrem/MinIO.CONSOLE_ACCESS_KEY
+minio-storage-credential--xcel    -> K8S/OnPrem/MinIO.CONSOLE_SECRET_KEY
+superset-secret-key               -> K8S/OnPrem/Superset.credential
+```

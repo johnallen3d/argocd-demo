@@ -14,7 +14,7 @@ spec:
   - name: "test-bucket-01"
   certConfig: {}
   configuration:
-    name: minio-storage-configuration
+    name: minio-configuration
   env: []
   externalCaCertSecret: []
   externalCertSecret: []
@@ -75,4 +75,4 @@ spec:
     minioServiceLabels: {}
   subPath: ""
   users:
-  - name: minio-console-user-credential
+  - name: minio-configuration
