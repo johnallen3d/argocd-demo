@@ -1,3 +1,2 @@
-environment: xcel-on-prem
 cloudflare:
   tunnelCredentialKey: CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_XCEL_ON_PREM
