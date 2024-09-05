@@ -2,14 +2,13 @@
 
 ## Managed Secrets
 
-| name                                | namespace                    | description                                                          |
-| ----------------------------------- | ---------------------------- | -------------------------------------------------------------------- |
-| `op-credentials`                    | `1password`                  | `1password-credentials.json` access to 1Password from Connect server |
-| `onepassword-token`                 | `1password`                  | access 1Password Connect server                                      |
-| `superset-secret-key`               | `superset`                   | a session cookie signing key for superset                            |
-| `minio-console-credential--xcel`    | `minio-tenant-0`             | default login credentails for the MinIO console web application      |
-| `minio-storage-configuration--xcel` | `minio-tenant-0`             | minio storage configuration including root user credentials          |
-| `cloudflare--3d`                    | `cloudflare-operator-system` | access token for Cloudflare Zero Trust tunnels                       |
+| name                             | namespace                    | description                                                                   |
+| -------------------------------- | ---------------------------- | ----------------------------------------------------------------------------- |
+| `op-credentials`                 | `1password`                  | `1password-credentials.json` access to 1Password from Connect server          |
+| `onepassword-token`              | `1password`                  | access 1Password Connect server                                               |
+| `superset-secret-key`            | `superset`                   | a session cookie signing key for superset                                     |
+| `minio-configuration--xcel`      | `minio-tenant-0`             | console login and minio storage configuration including root user credentials |
+| `cloudflare--3d`                 | `cloudflare-operator-system` | access token for Cloudflare Zero Trust tunnels                                |
 
 ## Current State
 
@@ -30,15 +29,15 @@
 ## Migration
 
 ```text
-cloudflare--3d                    -> K8S/Local/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_LOCAL
-minio-console--configuration-xcel -> K8S/Local/MinIO.config.env
-minio-storage-credential--xcel    -> K8S/Local/MinIO.CONSOLE_ACCESS_KEY
-minio-storage-credential--xcel    -> K8S/Local/MinIO.CONSOLE_SECRET_KEY
-superset-secret-key               -> K8S/Local/Superset.credential
+cloudflare--3d            -> K8S/Local/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_LOCAL
+minio-configuration--xcel -> K8S/Local/MinIO.config.env
+minio-configuration--xcel -> K8S/Local/MinIO.CONSOLE_ACCESS_KEY
+minio-configuration--xcel -> K8S/Local/MinIO.CONSOLE_SECRET_KEY
+superset-secret-key       -> K8S/Local/Superset.credential
 
-cloudflare--3d                    -> K8S/OnPrem/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_XCEL_ON_PREM
-minio-console--configuration-xcel -> K8S/OnPrem/MinIO.config.env
-minio-storage-credential--xcel    -> K8S/OnPrem/MinIO.CONSOLE_ACCESS_KEY
-minio-storage-credential--xcel    -> K8S/OnPrem/MinIO.CONSOLE_SECRET_KEY
-superset-secret-key               -> K8S/OnPrem/Superset.credential
+cloudflare--3d            -> K8S/OnPrem/Cloudflare.CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET_XCEL_ON_PREM
+minio-configuration--xcel -> K8S/OnPrem/MinIO.config.env
+minio-configuration--xcel -> K8S/OnPrem/MinIO.CONSOLE_ACCESS_KEY
+minio-configuration--xcel -> K8S/OnPrem/MinIO.CONSOLE_SECRET_KEY
+superset-secret-key       -> K8S/OnPrem/Superset.credential
 ```
