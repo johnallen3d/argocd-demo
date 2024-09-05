@@ -1,6 +1,6 @@
 import argo_cd.v1alpha1 as argocd
 
-_generate = lambda env: str, ref: str -> argocd.Application {
+_generate = lambda env: str, ref: str, secrets_provider: str -> argocd.Application {
     {
         kind = "Application"
         apiVersion = "argoproj.io/v1alpha1"
@@ -19,7 +19,10 @@ _generate = lambda env: str, ref: str -> argocd.Application {
                         "values.yaml"
                         "values-${env}.yaml"
                     ]
-                    values = "environment: ${env}"
+                    values = """
+                      environment: ${env}
+                      secrets_provider: ${secrets_provider}
+                    """
                 }
             }
             destination = {
@@ -35,4 +38,7 @@ _generate = lambda env: str, ref: str -> argocd.Application {
         }
     }
 }
-environments = {str(env): _generate(env, ref) for env, ref in {"local" = "feature/external-secrets", "xcel-on-prem" = "HEAD"}}
+apps = {"${env}-${secrets_provider}": _generate(env, ref, secrets_provider) for env, ref in {
+    "local" = "feature/external-secrets"
+    "xcel-on-prem" = "HEAD"
+} for secrets_provider in ["op", "aws"]}

@@ -1,20 +1,71 @@
-# apiVersion: external-secrets.io/v1beta1
-# kind: ClusterSecretStore
-# metadata:
-#   name: cluster-secret-store
-# spec:
-#   provider:
-#     onepassword:
-#       connectHost: http://onepassword-connect.1password.svc.cluster.local:8080
-#       vaults:
-#         k8s: 1
-#       auth:
-#         secretRef:
-#           connectTokenSecretRef:
-#             namespace: 1password
-#             name: onepassword-token
-#             key: token
+{{- if eq .Values.secrets_provider "op" }}
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: cluster-secret-store
+spec:
+  provider:
+    onepassword:
+      connectHost: http://onepassword-connect.1password.svc.cluster.local:8080
+      vaults:
+        k8s: 1
+      auth:
+        secretRef:
+          connectTokenSecretRef:
+            namespace: 1password
+            name: onepassword-token
+            key: token
 
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-credentials
+  namespace: cloudflare-operator-system
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: cloudflare--3d
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: minio-configuration
+  namespace: minio-tenant-0
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: minio-configuration--xcel
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: superset-secret-key
+  namespace: superset
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: K8S/Local/Superset
+{{- end }}
+
+{{- if eq .Values.secrets_provider "aws" }}
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
@@ -83,4 +134,6 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: K8S/Local/Superset
+      key: superset-secret-key
+{{- end }}
+
