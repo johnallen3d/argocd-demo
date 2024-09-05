@@ -27,9 +27,11 @@ spec:
       auth:
         secretRef:
           accessKeyIDSecretRef:
+            namespace: external-secrets
             name: aws-credential
             key: aws_access_key_id
           secretAccessKeySecretRef:
+            namespace: external-secrets
             name: aws-credential
             key: aws_secret_access_key
 
