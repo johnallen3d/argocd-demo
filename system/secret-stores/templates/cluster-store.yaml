@@ -18,7 +18,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
-  name: aws-secretsmanager
+  name: cluster-secret-store
 spec:
   provider:
     aws:
