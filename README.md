@@ -56,8 +56,8 @@ echo $ARGOCD_PASSWORD | pbcopy
 
 ## Environments
 
-| name         | locaction     | cluster type | host      | description                                      |
-| ------------ | ------------- | ------------ | --------- | ------------------------------------------------ |
-| local        | local machine | k3s          | multipass | a local testing cluster (eg. k3s)                |
-| dev          | trashcan-01   | k3s          | direct    | an instance of k3s running on the trashcan       |
-| xcel-on-prem | trashcan-01   | talos        | proxmox   | Talos cluster running in Proxmox on the trashcan |
+| name         | locaction     | cluster type | host      | description                                             |
+| ------------ | ------------- | ------------ | --------- | ------------------------------------------------------- |
+| local        | local machine | k3s          | multipass | a local testing cluster (eg. k3s)                       |
+| ~dev~        | ~trashcan-01~ | ~k3s~        | ~direct~  | ~an instance of k3s running on the trashcan~ DEPRECATED |
+| xcel-on-prem | trashcan-01   | talos        | proxmox   | Talos cluster running in Proxmox on the trashcan        |
