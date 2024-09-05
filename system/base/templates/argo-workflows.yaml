@@ -1,0 +1,40 @@
+{{- if eq .Values.environment "local" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: argo-workflows
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 0.42.1
+    helm:
+      values: |
+        server:
+          extraArgs:
+            - --auth-mode=server
+        useDefaultArtifactRepo: true
+        artifactRepository:
+          archiveLogs: true
+          s3:
+            bucket: argo-artifacts
+            endpoint: minio.minio-tenant-0.svc.cluster.local:9000
+            insecure: true
+            accessKeySecret:
+              name: minio-configuration
+              key: CONSOLE_ACCESS_KEY
+            secretKeySecret:
+              name: minio-configuration
+              key: CONSOLE_SECRET_KEY
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-workflows
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+{{- end }}
