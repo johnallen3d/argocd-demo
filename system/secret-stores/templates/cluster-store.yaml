@@ -106,8 +106,6 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  # name: minio-console-user-credential
-  # name: minio-storage-configuration
   name: minio-configuration
   namespace: minio-tenant-0
 spec:
