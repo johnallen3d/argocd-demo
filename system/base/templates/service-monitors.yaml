@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/johnallen3d/argocd-demo.git
-    targetRevision: feature/external-secrets
+    targetRevision: HEAD
     path: system/service-monitors
     helm:
       valueFiles:

@@ -16,7 +16,7 @@ spec:
       values: "\n                      environment: local\n                      secrets_provider: op\n                    "
     path: system/base
     repoURL: https://github.com/johnallen3d/argocd-demo.git
-    targetRevision: feature/external-secrets
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
