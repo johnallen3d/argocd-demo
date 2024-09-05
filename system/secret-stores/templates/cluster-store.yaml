@@ -19,22 +19,6 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: superset-secret-key
-  namespace: superset
-spec:
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: cluster-secret-store
-  target:
-    creationPolicy: Owner
-  dataFrom:
-  - extract:
-      key: superset-secret-key
-
----
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
   name: cloudflare-credentials
   namespace: cloudflare-operator-system
 spec:
@@ -45,13 +29,15 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: cloudflare--3d
+      key: K8S/Local/Cloudflare
 
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: minio-console-user-credential
+  # name: minio-console-user-credential
+  # name: minio-storage-configuration
+  name: minio-configuration
   namespace: minio-tenant-0
 spec:
   secretStoreRef:
@@ -61,6 +47,20 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: minio-console-credential--xcel
+      key: K8S/Local/MinIO
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: superset-secret-key
+  namespace: superset
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
   - extract:
-      key: minio-storage-configuration--xcel
+      key: K8S/Local/Superset
