@@ -1,0 +1,3 @@
+# leaving this in place to simplify ci linting/validation
+cloudflare:
+  tunnelCredentialKey: ""
