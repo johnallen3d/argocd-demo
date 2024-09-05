@@ -5,7 +5,7 @@ _generate = lambda env: str, ref: str, secrets_provider: str -> argocd.Applicati
         kind = "Application"
         apiVersion = "argoproj.io/v1alpha1"
         metadata = {
-            name = "argocd-demo-${env}"
+            name = "argocd-demo-${env}-${secrets_provider}"
             namespace = "argocd"
         }
         spec = {
