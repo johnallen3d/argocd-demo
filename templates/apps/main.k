@@ -14,16 +14,10 @@ _generate = lambda env: str, ref: str, secrets_provider: str -> argocd.Applicati
                 repoURL = "https://github.com/johnallen3d/argocd-demo.git"
                 targetRevision = ref
                 path = "system/base"
-                helm = {
-                    valueFiles = [
-                        "values.yaml"
-                        "values-${env}.yaml"
-                    ]
-                    values = """
+                helm = {values = """
                       environment: ${env}
                       secrets_provider: ${secrets_provider}
-                    """
-                }
+                    """}
             }
             destination = {
                 server = "https://kubernetes.default.svc"

@@ -10,9 +10,6 @@ spec:
   project: default
   source:
     helm:
-      valueFiles:
-      - values.yaml
-      - values-xcel-on-prem.yaml
       values: "\n                      environment: xcel-on-prem\n                      secrets_provider: op\n                    "
     path: system/base
     repoURL: https://github.com/johnallen3d/argocd-demo.git
