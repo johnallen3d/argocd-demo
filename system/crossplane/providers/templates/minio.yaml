@@ -31,7 +31,7 @@ metadata:
 spec:
   forProvider:
     bucketName: test-bucket-02
-    zone: us-east-1
+    region: us-east-1
   providerConfigRef:
     name: minio-provider-config
 {{- end }}
