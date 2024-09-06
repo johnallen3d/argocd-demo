@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-demo-dev
+  name: argocd-demo-dev-aws
   namespace: argocd
 spec:
   destination:
@@ -10,10 +10,7 @@ spec:
   project: default
   source:
     helm:
-      valueFiles:
-      - values.yaml
-      - values-dev.yaml
-      values: 'environment: dev'
+      values: "\n                      environment: dev\n                      secrets_provider: aws\n                    "
     path: system/base
     repoURL: https://github.com/johnallen3d/argocd-demo.git
     targetRevision: HEAD
