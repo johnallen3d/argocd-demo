@@ -8,6 +8,11 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   application.resourceTrackingMethod: annotation
+  resource.exclusions: |
+    - apiGroups:
+      - "*"
+      kinds:
+      - ProviderConfigUsage
   resource.customizations: |
     "*.upbound.io/*":
       health.lua: |
