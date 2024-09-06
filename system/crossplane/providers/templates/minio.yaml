@@ -22,16 +22,16 @@ spec:
     source: InjectedIdentity
   minioURL: http://minio.minio-tenant-0.svc.cluster.local:9000
 
-# ---
-# apiVersion: minio.crossplane.io/v1
-# kind: Bucket
-# metadata:
-#   name: test-bucket-02
-#   namespace: crossplane-system
-# spec:
-#   forProvider:
-#     bucketName: test-bucket-02
-#     region: us-east-1
-#   providerConfigRef:
-#     name: minio-provider-config
+---
+apiVersion: minio.crossplane.io/v1
+kind: Bucket
+metadata:
+  name: test-bucket-02
+  namespace: crossplane-system
+spec:
+  forProvider:
+    bucketName: test-bucket-02
+    region: us-east-1
+  providerConfigRef:
+    name: minio-provider-config
 {{- end }}
