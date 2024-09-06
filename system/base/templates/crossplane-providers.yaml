@@ -1,16 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: crossplane
+  name: crossplane-providers
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
-    chart: crossplane
-    repoURL: https://charts.crossplane.io/stable
-    targetRevision: 1.17.0
+    repoURL: https://github.com/johnallen3d/argocd-demo
+    targetRevision: HEAD
+    path: system/crossplane/providers
+    helm:
+      values: |
+        environment: {{ .Values.environment }}
   destination:
     server: https://kubernetes.default.svc
     namespace: crossplane-system
