@@ -20,7 +20,7 @@ spec:
       name: minio-configuration
       namespace: minio-tenant-0
     source: InjectedIdentity
-  minioURL: http://minio.minio-tenant-0.svc.cluster.local
+  minioURL: http://minio.minio-tenant-0.svc.cluster.local:9000
 
 ---
 apiVersion: minio.crossplane.io/v1
