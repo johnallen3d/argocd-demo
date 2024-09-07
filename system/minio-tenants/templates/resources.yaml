@@ -16,7 +16,7 @@ spec:
   certificate:
     requestAutoCert: false
     externalCertSecret:
-      name: minio-tls
+      name: minio-tenant-0-tls
       type: kubernetes.io/tls
   configuration:
     name: minio-configuration
