@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager
+  name: cert-issuers
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
-    chart: cert-manager
-    repoURL: https://charts.jetstack.io
-    targetRevision: v1.15.3
+    repoURL: https://github.com/johnallen3d/argocd-demo.git
+    targetRevision: HEAD
+    path: system/cert-issuers
     helm:
       values: |
-        installCRDs: true
+        environment: {{ .Values.environment }}
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
