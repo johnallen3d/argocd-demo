@@ -1,20 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: selfsigned-cluster-issuer
+  name: letsencrypt-cluster-issuer
 spec:
-  selfSigned: {}
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: minio-tls
-spec:
-  secretName: minio-tls-secret
-  issuerRef:
-    name: selfsigned-cluster-issuer
-    kind: ClusterIssuer
-  commonName: minio.minio-tenant-0.svc.cluster.local
-  dnsNames:
-  - minio.minio-tenant-0.svc.cluster.local
+  acme:
+    server: https://acme-v2.api.letsencrypt.org/directory
+    email: {{ .Values.letsencrypt_email }}
+    privateKeySecretRef:
+      name: letsencrypt-private-key
+    solvers:
+    - http01:
+        ingress:
+          class: nginx

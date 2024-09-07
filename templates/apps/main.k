@@ -17,6 +17,7 @@ _generate = lambda env: str, ref: str, secrets_provider: str -> argocd.Applicati
                 helm = {values = """
                       environment: ${env}
                       secrets_provider: ${secrets_provider}
+                      letsencrypt_email: "john@threedogconsulting.com"
                     """}
             }
             destination = {
