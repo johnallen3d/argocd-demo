@@ -23,7 +23,7 @@ spec:
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: test-bucket-01
+  name: test-bucket-73a5f1923
 spec:
   forProvider:
     region: us-east-1
