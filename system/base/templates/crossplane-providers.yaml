@@ -14,6 +14,7 @@ spec:
     helm:
       values: |
         environment: {{ .Values.environment }}
+        secrets_provider: {{ .Values.secrets_provider }}
   destination:
     server: https://kubernetes.default.svc
     namespace: crossplane-system
