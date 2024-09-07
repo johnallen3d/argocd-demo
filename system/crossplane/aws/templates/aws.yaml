@@ -18,13 +18,14 @@ spec:
       name: aws-secret
       key: creds
 
----
-apiVersion: s3.aws.upbound.io/v1beta1
-kind: Bucket
-metadata:
-  name: test-bucket-73a5f1923
-spec:
-  forProvider:
-    region: us-east-1
-  providerConfigRef:
-    name: provider-config-aws-s3
+# example
+# ---
+# apiVersion: s3.aws.upbound.io/v1beta1
+# kind: Bucket
+# metadata:
+#   name: test-bucket-73a5f1923
+# spec:
+#   forProvider:
+#     region: us-east-1
+#   providerConfigRef:
+#     name: provider-config-aws-s3
