@@ -1,0 +1,32 @@
+{{- if eq .Values.secrets_provider "aws" }}
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws-s3
+spec:
+  package: xpkg.upbound.io/upbound/provider-aws-s3:v1.13.0
+
+---
+apiVersion: aws.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: provider-config-aws-s3
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: external-secrets
+      name: aws-credential
+      key: creds
+
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: test-bucket-01
+spec:
+  forProvider:
+    region: us-east-1
+  providerConfigRef:
+    name: provider-config-aws-s3
+{{- end }}
