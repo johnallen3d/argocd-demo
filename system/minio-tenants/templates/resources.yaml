@@ -13,6 +13,11 @@ spec:
   buckets:
   - name: "test-bucket-01"
   certConfig: {}
+  certificate:
+    requestAutoCert: false
+    externalCertSecret:
+      name: minio-tls
+      type: kubernetes.io/tls
   configuration:
     name: minio-configuration
   env: []
