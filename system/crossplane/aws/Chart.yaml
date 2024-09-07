@@ -1,3 +1,3 @@
 apiVersion: v2
-name: crossplane-providers
+name: crossplane-provider-aws
 version: 0.1.0

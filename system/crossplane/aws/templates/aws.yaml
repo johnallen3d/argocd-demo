@@ -1,4 +1,3 @@
-{{- if eq .Values.secrets_provider "aws" }}
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
@@ -29,4 +28,3 @@ spec:
     region: us-east-1
   providerConfigRef:
     name: provider-config-aws-s3
-{{- end }}
