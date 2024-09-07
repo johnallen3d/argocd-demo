@@ -13,7 +13,7 @@ metadata:
 spec:
   secretName: minio-tls-secret
   issuerRef:
-    name: selfsigned-ca-issuer
+    name: selfsigned-cluster-issuer
     kind: ClusterIssuer
   commonName: minio.minio-tenant-0.svc.cluster.local
   dnsNames:
