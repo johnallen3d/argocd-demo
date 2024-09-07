@@ -12,8 +12,7 @@ metadata:
 spec:
   buckets:
   - name: "test-bucket-01"
-  certConfig:
-    type: none
+  certConfig: {}
   configuration:
     name: minio-configuration
   env: []
