@@ -14,6 +14,14 @@ spec:
         server:
           extraArgs:
             - --auth-mode=server
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
         useDefaultArtifactRepo: true
         artifactRepository:
           archiveLogs: true
@@ -27,6 +35,26 @@ spec:
             secretKeySecret:
               name: minio-configuration
               key: CONSOLE_SECRET_KEY
+        workflow:
+          serviceAccount:
+            create: true
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+        executor:
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-workflows
