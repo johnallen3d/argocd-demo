@@ -84,6 +84,5 @@ rules:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: argo-workflow-executor
+  name: argo-workflows
   namespace: argo-workflows
-
