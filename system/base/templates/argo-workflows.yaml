@@ -69,7 +69,7 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: executor
+  name: argo-workflows-executor
 rules:
   - apiGroups:
       - argoproj.io
