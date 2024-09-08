@@ -14,47 +14,6 @@ spec:
         server:
           extraArgs:
             - --auth-mode=server
-      #     securityContext:
-      #       runAsNonRoot: true
-      #       allowPrivilegeEscalation: false
-      #       capabilities:
-      #         drop:
-      #           - ALL
-      #       seccompProfile:
-      #         type: RuntimeDefault
-      #   useDefaultArtifactRepo: true
-      #   artifactRepository:
-      #     archiveLogs: true
-      #     s3:
-      #       bucket: argo-artifacts
-      #       endpoint: minio.minio-tenant-0.svc.cluster.local:9000
-      #       insecure: true
-      #       accessKeySecret:
-      #         name: minio-configuration
-      #         key: CONSOLE_ACCESS_KEY
-      #       secretKeySecret:
-      #         name: minio-configuration
-      #         key: CONSOLE_SECRET_KEY
-      #   workflow:
-      #     serviceAccount:
-      #       create: true
-      #     securityContext:
-      #       runAsNonRoot: true
-      #       allowPrivilegeEscalation: false
-      #       capabilities:
-      #         drop:
-      #           - ALL
-      #       seccompProfile:
-      #         type: RuntimeDefault
-      #   executor:
-      #     securityContext:
-      #       runAsNonRoot: true
-      #       allowPrivilegeEscalation: false
-      #       capabilities:
-      #         drop:
-      #           - ALL
-      #       seccompProfile:
-      #         type: RuntimeDefault
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-workflows
@@ -79,6 +38,14 @@ rules:
     verbs:
       - create
       - patch
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - watch
+      - patch
 
 ---
 apiVersion: v1
@@ -86,3 +53,18 @@ kind: ServiceAccount
 metadata:
   name: argo-workflows
   namespace: argo-workflows
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argo-workflows-executor-binding
+  namespace: argo-workflows
+subjects:
+- kind: ServiceAccount
+  name: argo-workflows
+  namespace: argo-workflows
+roleRef:
+  kind: Role
+  name: argo-workflows-executor
+  apiGroup: rbac.authorization.k8s.io
