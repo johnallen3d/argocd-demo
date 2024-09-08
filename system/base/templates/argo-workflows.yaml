@@ -10,51 +10,51 @@ spec:
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: 0.42.1
     helm:
-      values: |
-        server:
-          extraArgs:
-            - --auth-mode=server
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
-        useDefaultArtifactRepo: true
-        artifactRepository:
-          archiveLogs: true
-          s3:
-            bucket: argo-artifacts
-            endpoint: minio.minio-tenant-0.svc.cluster.local:9000
-            insecure: true
-            accessKeySecret:
-              name: minio-configuration
-              key: CONSOLE_ACCESS_KEY
-            secretKeySecret:
-              name: minio-configuration
-              key: CONSOLE_SECRET_KEY
-        workflow:
-          serviceAccount:
-            create: true
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
-        executor:
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
+      # values: |
+      #   server:
+      #     extraArgs:
+      #       - --auth-mode=server
+      #     securityContext:
+      #       runAsNonRoot: true
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       seccompProfile:
+      #         type: RuntimeDefault
+      #   useDefaultArtifactRepo: true
+      #   artifactRepository:
+      #     archiveLogs: true
+      #     s3:
+      #       bucket: argo-artifacts
+      #       endpoint: minio.minio-tenant-0.svc.cluster.local:9000
+      #       insecure: true
+      #       accessKeySecret:
+      #         name: minio-configuration
+      #         key: CONSOLE_ACCESS_KEY
+      #       secretKeySecret:
+      #         name: minio-configuration
+      #         key: CONSOLE_SECRET_KEY
+      #   workflow:
+      #     serviceAccount:
+      #       create: true
+      #     securityContext:
+      #       runAsNonRoot: true
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       seccompProfile:
+      #         type: RuntimeDefault
+      #   executor:
+      #     securityContext:
+      #       runAsNonRoot: true
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       seccompProfile:
+      #         type: RuntimeDefault
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-workflows
@@ -65,17 +65,17 @@ spec:
     syncOptions:
     - CreateNamespace=true
 
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: argo-workflows-executor
-  namespace: argo-workflows
-rules:
-  - apiGroups:
-      - argoproj.io
-    resources:
-      - workflowtaskresults
-    verbs:
-      - create
-      - patch
+# ---
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: Role
+# metadata:
+#   name: argo-workflows-executor
+#   namespace: argo-workflows
+# rules:
+#   - apiGroups:
+#       - argoproj.io
+#     resources:
+#       - workflowtaskresults
+#     verbs:
+#       - create
+#       - patch
