@@ -56,8 +56,26 @@ echo $ARGOCD_PASSWORD | pbcopy
 
 ## Environments
 
-| name         | locaction     | cluster type | host      | description                                             |
 | ------------ | ------------- | ------------ | --------- | ------------------------------------------------------- |
-| local        | local machine | k3s          | multipass | a local testing cluster (eg. k3s)                       |
-| ~dev~        | ~trashcan-01~ | ~k3s~        | ~direct~  | ~an instance of k3s running on the trashcan~ DEPRECATED |
-| xcel-on-prem | trashcan-01   | talos        | proxmox   | Talos cluster running in Proxmox on the trashcan        |
+| name | locaction | cluster type | host | description |
+| local | local machine | k3s | multipass | a local testing cluster (eg. k3s) |
+| ~dev~ | ~trashcan-01~ | ~k3s~ | ~direct~ | ~an instance of k3s running on the trashcan~ DEPRECATED |
+| xcel-on-prem | trashcan-01 | talos | proxmox | Talos cluster running in Proxmox on the trashcan |
+
+## Tasks
+
+### set-context
+
+Inputs: NAME
+Inputs: EXTERNAL_DOMAIN
+
+```bash
+pgrep cloudflared | xargs kill -9 || true
+
+cloudflared access tcp \
+  --hostname k8s.$EXTERNAL_DOMAIN \
+  --url 127.0.0.1:1234 \
+  > /dev/null 2>&1 &
+
+kubectl config use-context admin@$NAME-cluster
+```

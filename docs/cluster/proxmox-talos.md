@@ -112,9 +112,10 @@ get_vm_ip() {
 ```bash
 ssh root@prooxmox-01.taila14c2.ts.net
 
-VM_ID=1001
-TEMPLATE_ID=1000
-VM_NAME=talos-control-01
+NODE_NUMBER=1
+VM_ID="100${NODE_NUMBER}"
+TEMPLATE_ID="${NODE_NUMBER}000"
+VM_NAME="talos-control-0${NODE_NUMBER}"
 TALOS_CONFIG_DIR="/root/.config/talos/"
 
 TALOS_VERSION=v1.7.6
@@ -127,6 +128,7 @@ qm status $VM_ID
 CONTROL_PLANE_IP=$(get_vm_ip $VM_ID)
 echo $CONTROL_PLANE_IP
 
+# only once
 talosctl gen config talos-proxmox-cluster https://$CONTROL_PLANE_IP:6443 \
   --force \
   --output-dir $TALOS_CONFIG_DIR \
@@ -198,7 +200,7 @@ talosctl kubeconfig --force /root/.kube/proxmox-01-cluster-01.yaml
 Copy `kubeconfig` file to local machine.
 
 ```bash
-scp root@proxmox-01.taila14c2.ts.net:/root/.kube/proxmox-01-cluster-01.yaml ~/.kube/proxmox-01-cluster-01.yaml
+scp root@proxmox-01:/root/.kube/proxmox-01-cluster-01.yaml ~/.kube/proxmox-01-cluster-01.yaml
 ```
 
 Include proxy information in `kubeconfig`.
@@ -238,4 +240,47 @@ kubectl config view --flatten > ~/.kube/config
 for VM_ID in 1001 1011 1012 1013; do
   VM_ID=$VM_ID qm stop $VM_ID && qm destroy $VM_ID
 done
+```
+
+### Metrics Server
+
+#### Post Install
+
+```bash
+talosctl -n <IP> edit machineconfig
+```
+
+```yaml
+# on first control plane
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true
+
+  files:
+    - content: |
+        [metrics]
+          address = "0.0.0.0:11234"
+      path: /var/cri/conf.d/metrics.toml
+      op: create
+
+cluster:
+  extraManifests:
+    - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
+    - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+
+```yaml
+# on all other nodes
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true
+
+  files:
+    - content: |
+        [metrics]
+          address = "0.0.0.0:11234"
+      path: /var/cri/conf.d/metrics.toml
+      op: create
 ```
