@@ -214,12 +214,12 @@ Inputs: NAME
 Inputs: CONTROL_PLANE_VM_ID
 Inputs: EXTERNAL_DOMAIN
 Environment: METADATA_FILE=talos-metadata.sh
-Requires: switch-cluster
 
 ```bash
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
 source "$current_dir/util.sh"
+source "$current_dir/$METADATA_FILE"
 
 CONTROL_PLANE_IP=$(get_vm_ip "$CONTROL_PLANE_VM_ID")
 
