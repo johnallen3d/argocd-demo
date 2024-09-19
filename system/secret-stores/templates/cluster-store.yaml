@@ -100,7 +100,7 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: K8S/Local/Cloudflare
+      key: K8S/OnPrem/Cloudflare
 
 ---
 apiVersion: external-secrets.io/v1beta1
@@ -116,7 +116,7 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: K8S/Local/MinIO
+      key: K8S/OnPrem/MinIO
 
 ---
 apiVersion: external-secrets.io/v1beta1
@@ -132,6 +132,6 @@ spec:
     creationPolicy: Owner
   dataFrom:
   - extract:
-      key: K8S/Local/Superset
+      key: K8S/OnPrem/Superset
 {{- end }}
 
