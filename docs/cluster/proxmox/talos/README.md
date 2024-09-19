@@ -223,6 +223,10 @@ source "$current_dir/util.sh"
 
 CONTROL_PLANE_IP=$(get_vm_ip "$CONTROL_PLANE_VM_ID")
 
+export TALOSCONFIG="$TALOS_CONFIG_DIR/$NAME/talosconfig"
+talosctl config endpoint "$CONTROL_PLANE_IP"
+talosctl config node "$CONTROL_PLANE_IP"
+
 talosctl bootstrap
 
 # allow certs to be generated for external url
