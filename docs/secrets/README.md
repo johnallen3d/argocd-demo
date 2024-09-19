@@ -81,3 +81,30 @@ kubectl patch secret onepassword-token \
   --type 'json' \
   --patch "[{\"op\": \"replace\", \"path\": \"/data/token\", \"value\":\"${encoded_token}\"}]"
 ```
+
+### create-secret-aws
+
+Environment: AWS_ACCESS_KEY_ID
+Environment: AWS_SECRET_ACCESS_KEY
+Environment: AWS_SESSION_TOKEN
+
+```bash
+#! /usr/bin/env bash
+
+secret_prefix=ref+awssecrets://K8S
+namespace="external-secrets"
+
+secret=$(vals get "$secret_prefix/OnPrem/ReadSecrets")
+
+aws_access_key_id=$(echo $secret | jq -r '.aws_access_key_id')
+aws_secret_access_key=$(echo $secret | jq -r '.aws_secret_access_key')
+creds=$(echo $secret | jq -r '.creds')
+
+kubectl create namespace $namespace
+
+kubectl create secret generic aws-credential \
+  --namespace $namespace \
+  --from-literal=aws_access_key_id="$aws_access_key_id" \
+  --from-literal=aws_secret_access_key="$aws_secret_access_key" \
+  --from-literal=creds="$creds"
+```
