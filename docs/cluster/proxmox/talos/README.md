@@ -139,6 +139,16 @@ talosctl apply-config \
   --file "$TALOS_CONFIG_DIR/$NAME/controlplane.yaml"
 ```
 
+### copy-talos-config
+
+Inputs: NAME
+Inputs: TO_HOST_NAME
+Environment: TO_HOST_NAME=proxmox-02
+
+```bash
+scp /root/.config/talos/$NAME/* root@$TO_HOST_NAME:/root/.config/talos/$NAME/
+```
+
 ### create-worker-nodes
 
 Inputs: NAME
