@@ -1,3 +1,26 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  labels:
+    name: provider-minio
+  name: provider-minio
+spec:
+  package: ghcr.io/vshn/provider-minio/package:latest
+
+---
+apiVersion: minio.crossplane.io/v1
+kind: ProviderConfig
+metadata:
+  name: provider-config
+spec:
+  credentials:
+    apiSecretRef:
+      name: minio-secret
+      namespace: crossplane-system
+    source: InjectedIdentity
+  minioURL: http://minio.minio-tenant-0.svc.cluster.local
+
+---
 apiVersion: minio.min.io/v2
 kind: Tenant
 metadata:
