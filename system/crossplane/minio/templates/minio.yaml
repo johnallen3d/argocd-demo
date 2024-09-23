@@ -2,7 +2,6 @@ apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-minio
-  namespace: crossplane-system
 spec:
   package: xpkg.upbound.io/vshn/provider-minio:v0.4.3
 
@@ -10,8 +9,7 @@ spec:
 apiVersion: minio.crossplane.io/v1
 kind: ProviderConfig
 metadata:
-  name: minio-provider-config
-  namespace: crossplane-system
+  name: provider-config-minio
 spec:
   credentials:
     apiSecretRef:
@@ -25,10 +23,10 @@ apiVersion: minio.crossplane.io/v1
 kind: Bucket
 metadata:
   name: test-bucket-02
-  namespace: crossplane-system
+  namespace: minio-tenant-0
 spec:
   forProvider:
     bucketName: test-bucket-02
     region: us-east-1
   providerConfigRef:
-    name: minio-provider-config
+    name: provider-config-minio
