@@ -24,7 +24,7 @@ spec:
         - name: SA_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: K8S/OnPrem/MSSQLServer
+              name: mssql-sa-password
               key: SA_PASSWORD
         volumeMounts:
         - name: mssqldb
