@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mssql-deployment
+  namespace: mssql
 spec:
   replicas: 1
   selector:
@@ -38,6 +39,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mssql-service
+  namespace: mssql
 spec:
   selector:
     app: mssql
