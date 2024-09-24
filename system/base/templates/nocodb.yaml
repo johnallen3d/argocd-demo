@@ -10,9 +10,6 @@ spec:
     repoURL: https://github.com/nocodb/nocodb.git
     targetRevision: develop
     path: charts/nocodb
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: nocodb
