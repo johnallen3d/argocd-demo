@@ -7,9 +7,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/nocodb/nocodb.git
-    targetRevision: develop
-    path: charts/nocodb
+    repoURL: https://github.com/zekker6/helm-charts.git
+    targetRevision: HEAD
+    path: charts/apps/nocodb
   destination:
     server: https://kubernetes.default.svc
     namespace: nocodb
