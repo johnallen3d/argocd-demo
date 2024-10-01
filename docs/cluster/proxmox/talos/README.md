@@ -156,7 +156,9 @@ Inputs: PREFIX
 Inputs: NODE_NUMBER
 Inputs: TEMPLATE_ID
 Inputs: COUNT
+Inputs: DISK_SIZE
 Environment: COUNT=1
+Environment: DISK_SIZE=100
 Environment: METADATA_FILE=talos-metadata.sh
 
 ```bash
@@ -170,6 +172,7 @@ for NODE_NUMBER in $(seq "$NODE_NUMBER" $((NODE_NUMBER + COUNT - 1))); do
   VM_NAME="${NAME}-worker-${NODE_NUMBER}"
 
   qm clone "$TEMPLATE_ID" "$VM_ID" --name "$VM_NAME" --full
+  qm resize "$VM_ID" scsi0 "${DISK_SIZE}G"
   qm start "$VM_ID"
   qm status "$VM_ID"
 
