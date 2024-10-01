@@ -10,6 +10,15 @@ spec:
     repoURL: https://github.com/zekker6/helm-charts.git
     targetRevision: HEAD
     path: charts/apps/nocodb
+    helm:
+      values: |
+        persistence:
+          config:
+            enabled: true
+            type: pvc
+            accessMode: ReadWriteOnce
+            size: 10Gi
+            mountPath: /config
   destination:
     server: https://kubernetes.default.svc
     namespace: nocodb
