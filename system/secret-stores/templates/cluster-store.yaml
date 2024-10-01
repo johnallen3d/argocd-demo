@@ -149,4 +149,20 @@ spec:
   dataFrom:
   - extract:
       key: K8S/OnPrem/MSSQLServer
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: minio-client-config
+  namespace: mssql
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: K8S/OnPrem/MinIOClientConfig
 {{- end }}
