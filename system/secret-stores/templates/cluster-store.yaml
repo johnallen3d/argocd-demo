@@ -154,6 +154,22 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
+  name: mssql-sa-password
+  namespace: argo-workflows
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: K8S/OnPrem/MSSQLServer
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
   name: minio-client-config
   namespace: argo-workflows
 spec:
