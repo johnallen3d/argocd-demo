@@ -1,31 +1,31 @@
-{{- if eq .Values.secrets_provider "aws" }}
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: crossplane-provider-aws
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "2"
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/johnallen3d/argocd-demo
-    targetRevision: HEAD
-    path: system/crossplane/aws
-    helm:
-      values: |
-        environment: {{ .Values.environment }}
-        secrets_provider: {{ .Values.secrets_provider }}
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: crossplane-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
-{{- end }}
+# {{- if eq .Values.secrets_provider "aws" }}
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: crossplane-provider-aws
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "2"
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/johnallen3d/argocd-demo
+#     targetRevision: HEAD
+#     path: system/crossplane/aws
+#     helm:
+#       values: |
+#         environment: {{ .Values.environment }}
+#         secrets_provider: {{ .Values.secrets_provider }}
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: crossplane-system
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#     - CreateNamespace=true
+# {{- end }}
 
 # xpkg.upbound.io/vshn/provider-minio does not have an arm version
 # https://github.com/vshn/provider-minio/issues/56
@@ -62,7 +62,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: crossplane-provider-aws
+  name: crossplane-buckets
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
