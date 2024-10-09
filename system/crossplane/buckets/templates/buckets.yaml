@@ -37,29 +37,29 @@ spec:
   providerConfigRef:
     name: provider-config-minio
 
-{{- if eq .Values.secrets_provider "aws" }}
----
-apiVersion: aws.upbound.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: provider-config-aws-s3
-spec:
-  credentials:
-    source: Secret
-    secretRef:
-      namespace: crossplane-system
-      name: aws-secret
-      key: creds
-
-# example
+# {{- if eq .Values.secrets_provider "aws" }}
 # ---
-# apiVersion: s3.aws.upbound.io/v1beta1
-# kind: Bucket
+# apiVersion: aws.upbound.io/v1beta1
+# kind: ProviderConfig
 # metadata:
-#   name: test-bucket-73a5f1923
+#   name: provider-config-aws-s3
 # spec:
-#   forProvider:
-#     region: us-east-1
-#   providerConfigRef:
-#     name: provider-config-aws-s3
-{{- end }}
+#   credentials:
+#     source: Secret
+#     secretRef:
+#       namespace: crossplane-system
+#       name: aws-secret
+#       key: creds
+#
+# # example
+# # ---
+# # apiVersion: s3.aws.upbound.io/v1beta1
+# # kind: Bucket
+# # metadata:
+# #   name: test-bucket-73a5f1923
+# # spec:
+# #   forProvider:
+# #     region: us-east-1
+# #   providerConfigRef:
+# #     name: provider-config-aws-s3
+# {{- end }}

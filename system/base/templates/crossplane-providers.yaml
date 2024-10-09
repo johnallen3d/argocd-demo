@@ -57,7 +57,6 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-{{- end }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -65,7 +64,7 @@ metadata:
   name: crossplane-buckets
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   project: default
   source:
@@ -85,3 +84,4 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+{{- end }}
