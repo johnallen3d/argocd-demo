@@ -58,3 +58,30 @@ spec:
     syncOptions:
     - CreateNamespace=true
 {{- end }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-provider-aws
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/johnallen3d/argocd-demo
+    targetRevision: HEAD
+    path: system/crossplane/buckets
+    helm:
+      values: |
+        environment: {{ .Values.environment }}
+        secrets_provider: {{ .Values.secrets_provider }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crossplane-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

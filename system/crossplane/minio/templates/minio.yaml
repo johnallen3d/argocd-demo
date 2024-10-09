@@ -18,29 +18,3 @@ spec:
       namespace: minio-tenant-0
     source: InjectedIdentity
   minioURL: http://minio.minio-tenant-0.svc.cluster.local
-
----
-apiVersion: minio.crossplane.io/v1
-kind: Bucket
-metadata:
-  name: test-bucket-02
-  namespace: minio-tenant-0
-spec:
-  forProvider:
-    bucketName: test-bucket-02
-    region: us-east-1
-  providerConfigRef:
-    name: provider-config-minio
-
----
-apiVersion: minio.crossplane.io/v1
-kind: Bucket
-metadata:
-  name: project-motherduck
-  namespace: minio-tenant-0
-spec:
-  forProvider:
-    bucketName: project-motherduck
-    region: us-east-1
-  providerConfigRef:
-    name: provider-config-minio
