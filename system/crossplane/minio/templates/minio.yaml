@@ -31,3 +31,16 @@ spec:
     region: us-east-1
   providerConfigRef:
     name: provider-config-minio
+
+---
+apiVersion: minio.crossplane.io/v1
+kind: Bucket
+metadata:
+  name: project-motherduck
+  namespace: minio-tenant-0
+spec:
+  forProvider:
+    bucketName: project-motherduck
+    region: us-east-1
+  providerConfigRef:
+    name: provider-config-minio
