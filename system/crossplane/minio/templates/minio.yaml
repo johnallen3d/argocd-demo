@@ -5,28 +5,28 @@ metadata:
 spec:
   package: xpkg.upbound.io/vshn/provider-minio:v0.4.3
 
----
-apiVersion: minio.crossplane.io/v1
-kind: ProviderConfig
-metadata:
-  name: provider-config-minio
-spec:
-  credentials:
-    apiSecretRef:
-      name: minio-configuration
-      namespace: minio-tenant-0
-    source: InjectedIdentity
-  minioURL: http://minio.minio-tenant-0.svc.cluster.local
+# ---
+# apiVersion: minio.crossplane.io/v1
+# kind: ProviderConfig
+# metadata:
+#   name: provider-config-minio
+# spec:
+#   credentials:
+#     apiSecretRef:
+#       name: minio-configuration
+#       namespace: minio-tenant-0
+#     source: InjectedIdentity
+#   minioURL: http://minio.minio-tenant-0.svc.cluster.local
 
----
-apiVersion: minio.crossplane.io/v1
-kind: Bucket
-metadata:
-  name: test-bucket-02
-  namespace: minio-tenant-0
-spec:
-  forProvider:
-    bucketName: test-bucket-02
-    region: us-east-1
-  providerConfigRef:
-    name: provider-config-minio
+# ---
+# apiVersion: minio.crossplane.io/v1
+# kind: Bucket
+# metadata:
+#   name: test-bucket-02
+#   namespace: minio-tenant-0
+# spec:
+#   forProvider:
+#     bucketName: test-bucket-02
+#     region: us-east-1
+#   providerConfigRef:
+#     name: provider-config-minio
