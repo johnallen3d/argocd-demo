@@ -5,16 +5,3 @@ metadata:
   name: provider-minio
 spec:
   package: xpkg.upbound.io/vshn/provider-minio:v0.4.3
-
----
-apiVersion: minio.crossplane.io/v1
-kind: ProviderConfig
-metadata:
-  name: provider-config-minio
-spec:
-  credentials:
-    apiSecretRef:
-      name: minio-configuration
-      namespace: minio-tenant-0
-    source: InjectedIdentity
-  minioURL: http://minio.minio-tenant-0.svc.cluster.local
