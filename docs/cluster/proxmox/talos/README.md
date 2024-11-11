@@ -137,6 +137,8 @@ talosctl apply-config \
   --insecure \
   --nodes "$CONTROL_PLANE_IP" \
   --file "$TALOS_CONFIG_DIR/$NAME/controlplane.yaml"
+
+qm set "$VM_ID" -tags $NAME
 ```
 
 ### copy-talos-config
@@ -183,6 +185,8 @@ for NODE_NUMBER in $(seq "$NODE_NUMBER" $((NODE_NUMBER + COUNT - 1))); do
     --insecure \
     --nodes "$WORKER_IP" \
     --file "$TALOS_CONFIG_DIR/$NAME/worker.yaml"
+
+  qm set "$VM_ID" -tags $NAME
 done
 ```
 
