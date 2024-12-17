@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+  name: harbor
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: harbor
+    helm:
+      values: |
+        expose:
+          type: clusterIP
+          tls:
+            enabled: false
+          ingress:
+            enabled: false
+        externalURL: https://harbor.xcelonprem.foo
+    repoURL: https://helm.goharbor.io
+    targetRevision: '1.15.1'
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: harbor
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
