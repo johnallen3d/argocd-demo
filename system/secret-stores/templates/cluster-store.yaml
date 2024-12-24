@@ -116,7 +116,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -132,7 +132,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -148,7 +148,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -164,7 +164,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -180,7 +180,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -196,7 +196,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
   target:
     creationPolicy: Owner
   dataFrom:
@@ -212,7 +212,7 @@ metadata:
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
-    name: cluster-secret-store
+    name: cluster-secret-store-secrets-manager
     # name: cluster-secret-store-parameter-store
   target:
     creationPolicy: Owner
