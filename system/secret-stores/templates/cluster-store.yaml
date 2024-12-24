@@ -69,11 +69,32 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
-  name: cluster-secret-store
+  name: cluster-secret-store-secrets-manager
 spec:
   provider:
     aws:
       service: SecretsManager
+      region: us-east-1
+      auth:
+        secretRef:
+          accessKeyIDSecretRef:
+            namespace: external-secrets
+            name: aws-credential
+            key: aws_access_key_id
+          secretAccessKeySecretRef:
+            namespace: external-secrets
+            name: aws-credential
+            key: aws_secret_access_key
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterSecretStore
+metadata:
+  name: cluster-secret-store-parameter-store
+spec:
+  provider:
+    aws:
+      service: ParameterStore
       region: us-east-1
       auth:
         secretRef:
@@ -181,4 +202,21 @@ spec:
   dataFrom:
   - extract:
       key: K8S/OnPrem/MinIOClientConfig
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: harbor-registry-credentail
+  namespace: argo-workflows
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-secret-store
+    # name: cluster-secret-store-parameter-store
+  target:
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: K8S/OnPrem/HarborDataAssetWorkflowsPull
 {{- end }}
