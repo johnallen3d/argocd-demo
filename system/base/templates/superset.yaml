@@ -32,6 +32,10 @@ spec:
             FEATURE_FLAGS = {
               "DASHBOARD_RBAC": True
             }
+            LANGUAGES = {
+              "en": {"flag": "us", "name": "English"},
+              "es": {"flag": "es", "name": "Spanish"}
+            }
         - name: bootstrapScript
           value: |
             #!/bin/bash
