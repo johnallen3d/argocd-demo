@@ -15,7 +15,7 @@ spec:
   project: default
   source:
     repoURL: https://apache.github.io/superset
-    targetRevision: 0.13.6
+    targetRevision: 0.14.0
     chart: superset
     helm:
       parameters:
