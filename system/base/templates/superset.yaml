@@ -40,7 +40,7 @@ spec:
         - name: bootstrapScript
           value: |
             #!/bin/bash
-            pip3 install duckdb duckdb-engine psycopg2
+            pip3 install duckdb duckdb-engine psycopg2-binary
             if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
   destination:
     server: https://kubernetes.default.svc
