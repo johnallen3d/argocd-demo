@@ -40,6 +40,7 @@ spec:
         - name: bootstrapScript
           value: |
             #!/bin/bash
+            apt-get update && apt-get install -y build-essential
             pip3 install duckdb duckdb-engine psycopg2-binary
             if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
   destination:
