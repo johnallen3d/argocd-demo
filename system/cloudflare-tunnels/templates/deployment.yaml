@@ -28,7 +28,7 @@ spec:
             - --no-tls-verify
             - --token
             - $(CLOUDFLARE_TUNNEL_CREDENTIAL)
-          image: cloudflare/cloudflared:latest
+          image: cloudflare/cloudflared:2024.12.2
           name: cloudflared
           livenessProbe:
             httpGet:
