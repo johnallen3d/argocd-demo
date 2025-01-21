@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: superset-test
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: superset-test
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://apache.github.io/superset
+    targetRevision: 0.14.0
+    chart: superset
+    helm:
+      parameters:
+        - name: extraEnvRaw[0].name
+          value: SUPERSET_SECRET_KEY
+        - name: extraEnvRaw[0].valueFrom.secretKeyRef.name
+          value: superset-secret-key
+        - name: extraEnvRaw[0].valueFrom.secretKeyRef.key
+          value: credential
+        - name: postgresql.image.tag
+          value: "14.12.0-debian-12-r22"
+        - name: configOverrides.my_override
+          value: |
+            FEATURE_FLAGS = {
+              "DASHBOARD_RBAC": True,
+            }
+        - name: bootstrapScript
+          value: |
+            #!/bin/bash
+            apt-get update && apt-get install -y build-essential
+            pip3 install duckdb duckdb-engine psycopg2-binary
+            if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: superset-test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
