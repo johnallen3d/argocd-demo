@@ -28,7 +28,7 @@ spec:
         - name: postgresql.image.tag
           value: "14.12.0-debian-12-r22"
         - name: extraEnv.SERVER_WORKER_AMOUNT
-          value: 2
+          value: "2"
         - name: configOverrides.my_override
           value: |
             FEATURE_FLAGS = {
