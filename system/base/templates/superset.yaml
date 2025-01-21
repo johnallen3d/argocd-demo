@@ -30,8 +30,7 @@ spec:
         - name: configOverrides.my_override
           value: |
             FEATURE_FLAGS = {
-              "DASHBOARD_RBAC": True,
-              "EMBEDDED_SUPERSET": True
+              "DASHBOARD_RBAC": True
             }
             LANGUAGES = {
               "en": {"flag": "us", "name": "English"},
