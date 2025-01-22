@@ -37,6 +37,7 @@ spec:
             #!/bin/bash
             apt-get update && apt-get install -y build-essential
             pip3 install duckdb duckdb-engine psycopg2-binary
+            python -c 'import duckdb; con = duckdb.connect(database=":memory:", read_only=False); con.execute("INSTALL 'httpfs';");'
             if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap; fi
   destination:
     server: https://kubernetes.default.svc
