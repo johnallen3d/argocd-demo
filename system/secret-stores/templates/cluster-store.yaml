@@ -160,7 +160,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: superset-secret-key
-  namespace: superset-test
+  namespace: dashboards
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
